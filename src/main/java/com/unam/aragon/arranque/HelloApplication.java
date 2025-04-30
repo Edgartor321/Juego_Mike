@@ -35,7 +35,7 @@ public class HelloApplication extends Application {
         hoja = new Canvas(600, 600);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
-        fondo = new Fondo(0, 0, "fondo2.jpg", 12,9.8f);
+        fondo = new Fondo(0, 0, "fondo2.jpg", 1,9.8f);
     }
     private void graficar(){
         fondo.graficar(graficos);
