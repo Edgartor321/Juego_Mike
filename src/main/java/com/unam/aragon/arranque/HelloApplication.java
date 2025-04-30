@@ -26,6 +26,8 @@ public class HelloApplication extends Application {
         stage.setTitle("GOTY del Año");
         stage.setScene(escena);
         stage.show();
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
         ciclo();
     }
 
