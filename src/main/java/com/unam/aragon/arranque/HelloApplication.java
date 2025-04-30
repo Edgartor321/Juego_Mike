@@ -2,17 +2,21 @@ package com.unam.aragon.arranque;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import com.unam.aragon.modelo.Fondo;
 import com.unam.aragon.modelo.ComponentesJuego;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 public class HelloApplication extends Application {
     private GraphicsContext graficos;
     private Group root;
@@ -38,6 +42,10 @@ public class HelloApplication extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo2.jpg", 1,9.8f);
+//        escena.setOnKeyPressed(keyEvent -> {
+//            KeyCode code = keyEvent.getCode();
+//            System.out.println("Tecla presionada: " + code);
+//        });
     }
     private void graficar(){
         fondo.graficar(graficos);

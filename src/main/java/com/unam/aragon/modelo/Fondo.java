@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 public class Fondo extends ComponentesJuego{
-    private int bgy=-600;
+    private int bgx =-600;
     private Image imagen;
     private Image imagenDos;
 
@@ -19,16 +19,16 @@ public class Fondo extends ComponentesJuego{
     }
     public void graficar(GraphicsContext g){
         g.drawImage(imagen,x,y);
-        g.drawImage(imagenDos,x,bgy);
+        g.drawImage(imagenDos,bgx, y);
     }
     public void logicaObjeto(){
-        y+=velocidad;
-        bgy += velocidad;
-        if (y == 600) {
-            y = -600;
+        x+=velocidad;
+        bgx += velocidad;
+        if (x == 600) {
+            x = -600;
         }
-        if (bgy == 600) {
-            bgy = -600;
+        if (bgx == 600) {
+            bgx = -600;
         }
     }
 }
