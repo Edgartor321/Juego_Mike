@@ -1,5 +1,6 @@
 package com.unam.aragon.arranque;
 
+import com.unam.aragon.modelo.Circulo;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -20,14 +21,21 @@ public class HelloApplication extends Application {
     private Scene escena;
     private Canvas hoja;
     private Fondo fondo;
-    //Set window settings
-    public final int tamano_cuadro_default = 32;
-    public final float escala = 1f;
-    public final int cuadros_en_ancho = 25;
-    public final int cuadros_en_largo = 13;
-    public final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
-    public final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
-    public final int altura_panel = tamano_cuadro * cuadros_en_largo;
+    //Establecer configuraciones de ventana.
+    public static final int tamano_cuadro_default = 32;
+    public static final float escala = 1f;
+    public static final int cuadros_en_ancho = 25;
+    public static final int cuadros_en_largo = 13;
+    public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
+    public static final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
+    public static final int altura_panel = tamano_cuadro * cuadros_en_largo;
+    //Input Loger variables
+    private boolean arriba_presionada=false;
+    private boolean abajo_presionada=false;
+    private boolean der_presionada=false;
+    private boolean izq_presionada=false;
+    private Circulo circulo;
+
     //Sitio de arranque
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
@@ -48,16 +56,43 @@ public class HelloApplication extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo.jpg", 1,1f);
-//        escena.setOnKeyPressed(keyEvent -> {
-//            KeyCode code = keyEvent.getCode();
-//            System.out.println("Tecla presionada: " + code);
-//        });
+        circulo=new Circulo(0,0,"",1,1);
+        escena.setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()){
+                case W -> arriba_presionada=true;
+                case S -> abajo_presionada=true;
+                case A -> izq_presionada=true;
+                case D -> der_presionada=true;
+                case UP -> arriba_presionada=true;
+                case DOWN -> abajo_presionada=true;
+                case LEFT -> izq_presionada=true;
+                case RIGHT -> der_presionada=true;
+            }
+        escena.setOnKeyReleased(keyEvent1 -> {
+            switch (keyEvent.getCode()){
+                case W -> arriba_presionada=false;
+                case S -> abajo_presionada=false;
+                case A -> izq_presionada=false;
+                case D -> der_presionada=false;
+                case UP -> arriba_presionada=false;
+                case DOWN -> abajo_presionada=false;
+                case LEFT -> izq_presionada=false;
+                case RIGHT -> der_presionada=false;
+            }
+        });
+        });
+
     }
     private void graficar(){
         fondo.graficar(graficos);
+        circulo.graficar(graficos);
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
+        this.circulo.logicaObjeto();
+    }
+    private void update(){
+        this.circulo.movement(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
     }
     private void ciclo() {
         long tiempoInicio = System.nanoTime();
@@ -69,6 +104,8 @@ public class HelloApplication extends Application {
                 double t = (tiempoActual - tiempoInicio) / 1000000000.0;
                 logicaObjeto();
                 graficar();
+                update();
+
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
                 fps_counter++;
                 if (tiempoActual - fps_timer >= 1000000000) { // Un segundo en nanosegundos

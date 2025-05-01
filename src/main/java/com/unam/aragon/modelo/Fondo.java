@@ -31,4 +31,5 @@ public class Fondo extends ComponentesJuego{
             bgx = -600;
         }
     }
+
 }
