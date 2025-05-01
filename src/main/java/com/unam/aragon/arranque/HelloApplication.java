@@ -67,21 +67,19 @@ public class HelloApplication extends Application {
                 case DOWN -> abajo_presionada=true;
                 case LEFT -> izq_presionada=true;
                 case RIGHT -> der_presionada=true;
-            }
-        escena.setOnKeyReleased(keyEvent1 -> {
-            switch (keyEvent.getCode()){
-                case W -> arriba_presionada=false;
-                case S -> abajo_presionada=false;
-                case A -> izq_presionada=false;
-                case D -> der_presionada=false;
-                case UP -> arriba_presionada=false;
-                case DOWN -> abajo_presionada=false;
-                case LEFT -> izq_presionada=false;
-                case RIGHT -> der_presionada=false;
-            }
-        });
-        });
+            }});
 
+        escena.setOnKeyReleased(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case W -> arriba_presionada = false;
+                case S -> abajo_presionada = false;
+                case A -> izq_presionada = false;
+                case D -> der_presionada = false;
+                case UP -> arriba_presionada = false;
+                case DOWN -> abajo_presionada = false;
+                case LEFT -> izq_presionada = false;
+                case RIGHT -> der_presionada = false;
+            }});
     }
     private void graficar(){
         fondo.graficar(graficos);

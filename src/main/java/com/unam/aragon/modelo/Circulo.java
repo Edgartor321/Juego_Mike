@@ -38,7 +38,7 @@ public class Circulo extends ComponentesJuego{
 
     @Override
     public void graficar(GraphicsContext g) {
-        g.fillRect(x,y,30,30);
+        g.fillRect(x,y,40,40);
     }
 }
 
