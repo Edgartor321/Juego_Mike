@@ -18,6 +18,15 @@ public class HelloApplication extends Application {
     private Scene escena;
     private Canvas hoja;
     private Fondo fondo;
+    //Set window settings
+    public final int tamano_cuadro_default = 32;
+    public final float escala = 1f;
+    public final int cuadros_en_ancho = 25;
+    public final int cuadros_en_largo = 13;
+    public final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
+    public final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
+    public final int altura_panel = tamano_cuadro * cuadros_en_largo;
+    //Sitio de arranque
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
         componentsStart();
@@ -32,11 +41,11 @@ public class HelloApplication extends Application {
 
     private void componentsStart() throws URISyntaxException{
         root = new Group();
-        escena = new Scene(root, 600, 600);
-        hoja = new Canvas(600, 600);
+        escena = new Scene(root, anchura_panel, altura_panel);
+        hoja = new Canvas(anchura_panel, altura_panel);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
-        fondo = new Fondo(0, 0, "fondo2.jpg", 1,9.8f);
+        fondo = new Fondo(0, 0, "fondo.jpg", 0,1f);
 //        escena.setOnKeyPressed(keyEvent -> {
 //            KeyCode code = keyEvent.getCode();
 //            System.out.println("Tecla presionada: " + code);
