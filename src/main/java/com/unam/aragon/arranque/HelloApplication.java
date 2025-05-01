@@ -72,7 +72,7 @@ public class HelloApplication extends Application {
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
                 fps_counter++;
                 if (tiempoActual - fps_timer >= 1000000000) { // Un segundo en nanosegundos
-                    System.out.println("FPS: " + fps_counter);
+                    //System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
             }}
