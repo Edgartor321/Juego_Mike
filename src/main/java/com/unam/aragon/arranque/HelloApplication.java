@@ -6,9 +6,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import com.unam.aragon.modelo.Fondo;
 
@@ -45,7 +47,7 @@ public class HelloApplication extends Application {
         hoja = new Canvas(anchura_panel, altura_panel);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
-        fondo = new Fondo(0, 0, "fondo.jpg", 0,1f);
+        fondo = new Fondo(0, 0, "fondo.jpg", 1,1f);
 //        escena.setOnKeyPressed(keyEvent -> {
 //            KeyCode code = keyEvent.getCode();
 //            System.out.println("Tecla presionada: " + code);
@@ -60,13 +62,20 @@ public class HelloApplication extends Application {
     private void ciclo() {
         long tiempoInicio = System.nanoTime();
         AnimationTimer tiempo = new AnimationTimer() {
+            private int fps_counter;
+            private long fps_timer;
             @Override
             public void handle(long tiempoActual) {
                 double t = (tiempoActual - tiempoInicio) / 1000000000.0;
                 logicaObjeto();
                 graficar();
-
-            }
+                //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
+                fps_counter++;
+                if (tiempoActual - fps_timer >= 1000000000) { // Un segundo en nanosegundos
+                    System.out.println("FPS: " + fps_counter);
+                    fps_counter = 0;
+                    fps_timer = tiempoActual;
+            }}
         };
         tiempo.start();
     }
