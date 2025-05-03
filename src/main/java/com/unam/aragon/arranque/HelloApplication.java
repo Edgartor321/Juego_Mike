@@ -1,17 +1,15 @@
 package com.unam.aragon.arranque;
 
-import com.unam.aragon.modelo.Circulo;
+import com.unam.aragon.modelo.PersonajePrueba;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import com.unam.aragon.modelo.Fondo;
 
@@ -34,7 +32,7 @@ public class HelloApplication extends Application {
     private boolean abajo_presionada=false;
     private boolean der_presionada=false;
     private boolean izq_presionada=false;
-    private Circulo circulo;
+    private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
 
     //Sitio de arranque
@@ -47,6 +45,7 @@ public class HelloApplication extends Application {
         stage.show();
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
+//        inicia_ciclo();
         ciclo();
     }
 
@@ -57,7 +56,7 @@ public class HelloApplication extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo.jpg", 1,1f);
-        circulo=new Circulo(0,0,"",1,1);
+        personajePrueba =new PersonajePrueba(0,0,"Mike.png",3,1);
         escena.setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()){
                 case W -> arriba_presionada=true;
@@ -84,15 +83,16 @@ public class HelloApplication extends Application {
     }
     private void graficar(){
         fondo.graficar(graficos);
-        circulo.graficar(graficos);
+        personajePrueba.graficar(graficos);
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
-        this.circulo.logicaObjeto();
+        this.personajePrueba.logicaObjeto();
     }
     private void update(){
-        this.circulo.movement(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
+        this.personajePrueba.movement(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
     }
+
     //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
     private void ciclo() {
         final long fps_duracion =1000000000/tope_fps;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
@@ -125,6 +125,8 @@ public class HelloApplication extends Application {
             }}
         };
         tiempo.start();
+    }
+    private void inicia_ciclo(){
     }
 
     public static void main(String[] args) {
