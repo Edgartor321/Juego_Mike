@@ -35,6 +35,7 @@ public class HelloApplication extends Application {
     private boolean der_presionada=false;
     private boolean izq_presionada=false;
     private Circulo circulo;
+    private static final int tope_fps=120;
 
     //Sitio de arranque
     @Override
@@ -92,21 +93,32 @@ public class HelloApplication extends Application {
     private void update(){
         this.circulo.movement(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
     }
+    //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
     private void ciclo() {
+        final long fps_duracion =1000000000/tope_fps;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
         long tiempoInicio = System.nanoTime();
         AnimationTimer tiempo = new AnimationTimer() {
             private int fps_counter;
             private long fps_timer;
+            private long uf;
             @Override
             public void handle(long tiempoActual) {
-                double t = (tiempoActual - tiempoInicio) / 1000000000.0;
+                if(uf==0){
+                    uf=tiempoActual;
+                    fps_timer=tiempoActual;
+                }if (tiempoActual - uf < fps_duracion){
+                    return;
+                }
+                uf=tiempoActual;
+                fps_counter++;
                 logicaObjeto();
                 graficar();
                 update();
 
+
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
-                fps_counter++;
-                if (tiempoActual - fps_timer >= 1000000000) { // Un segundo en nanosegundos
+
+                if (tiempoActual - fps_timer >= 1000000000) {
                     System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
