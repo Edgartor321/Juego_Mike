@@ -21,9 +21,9 @@ public class HelloApplication extends Application {
     private Fondo fondo;
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
-    public static final float escala = 1f;
     public static final int cuadros_en_ancho = 25;
     public static final int cuadros_en_largo = 13;
+    public static final float escala = 1.0f;
     public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
     public static final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
     public static final int altura_panel = tamano_cuadro * cuadros_en_largo;
@@ -38,7 +38,7 @@ public class HelloApplication extends Application {
     //Sitio de arranque
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
-        componentsStart();
+        arrancador();
         graficar();
         stage.setTitle("GOTY del Año");
         stage.setScene(escena);
@@ -49,7 +49,7 @@ public class HelloApplication extends Application {
         ciclo();
     }
 
-    private void componentsStart() throws URISyntaxException{
+    private void arrancador() throws URISyntaxException{
         root = new Group();
         escena = new Scene(root, anchura_panel, altura_panel);
         hoja = new Canvas(anchura_panel, altura_panel);

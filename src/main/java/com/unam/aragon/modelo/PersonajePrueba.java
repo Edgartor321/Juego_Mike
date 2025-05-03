@@ -40,7 +40,7 @@ public class PersonajePrueba extends ComponentesJuego{
 
     @Override
     public void graficar(GraphicsContext g) {
-        g.drawImage(sprite_Map_jugador,32,0,32,32,x,y,64,64);
+        g.drawImage(sprite_Map_jugador,32,0,32,32,x,y,64*HelloApplication.escala,64*HelloApplication.escala);
 
     }
 
