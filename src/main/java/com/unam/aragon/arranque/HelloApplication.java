@@ -56,31 +56,36 @@ public class HelloApplication extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo.jpg", 1,1f);
-        personajePrueba =new PersonajePrueba(0,0,"Mike.png",3,1);
+        personajePrueba =new PersonajePrueba(300,300,"Mike.png",3,1);
+        teclado();
+    }
+
+    private void teclado() {
         escena.setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()){
-                case W -> arriba_presionada=true;
-                case S -> abajo_presionada=true;
+                case SPACE -> arriba_presionada=true;
+                //case S -> abajo_presionada=true;
                 case A -> izq_presionada=true;
                 case D -> der_presionada=true;
-                case UP -> arriba_presionada=true;
-                case DOWN -> abajo_presionada=true;
+                //case UP -> arriba_presionada=true;
+                //case DOWN -> abajo_presionada=true;
                 case LEFT -> izq_presionada=true;
                 case RIGHT -> der_presionada=true;
             }});
 
         escena.setOnKeyReleased(keyEvent -> {
             switch (keyEvent.getCode()) {
-                case W -> arriba_presionada = false;
-                case S -> abajo_presionada = false;
+                case SPACE -> arriba_presionada = false;
+                //case S -> abajo_presionada = false;
                 case A -> izq_presionada = false;
                 case D -> der_presionada = false;
-                case UP -> arriba_presionada = false;
-                case DOWN -> abajo_presionada = false;
+                //case UP -> arriba_presionada = false;
+                //case DOWN -> abajo_presionada = false;
                 case LEFT -> izq_presionada = false;
                 case RIGHT -> der_presionada = false;
             }});
     }
+
     private void graficar(){
         fondo.graficar(graficos);
         personajePrueba.graficar(graficos);
@@ -90,7 +95,7 @@ public class HelloApplication extends Application {
         this.personajePrueba.logicaObjeto();
     }
     private void update(){
-        this.personajePrueba.movement(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
+        this.personajePrueba.movimiento(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
     }
 
     //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
