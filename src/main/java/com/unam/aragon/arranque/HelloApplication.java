@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +28,10 @@ public class HelloApplication extends Application {
     public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
     public static final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
     public static final int altura_panel = tamano_cuadro * cuadros_en_largo;
+    public static final int cuadros_en_ancho_mundo = 50;
+    public static final int cuadros_en_largo_mundo = 26;
+    public static final int anchura_mundo = tamano_cuadro * cuadros_en_ancho_mundo;
+    public static final int altura_mundo = tamano_cuadro * cuadros_en_largo_mundo;
     //Input Loger variables
     private boolean arriba_presionada=false;
     private boolean abajo_presionada=false;
@@ -34,6 +39,7 @@ public class HelloApplication extends Application {
     private boolean izq_presionada=false;
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
+    //private static int fps_animacion;
 
     //Sitio de arranque
     @Override
@@ -127,6 +133,8 @@ public class HelloApplication extends Application {
                     System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
+                    //fps_animacion=fps_counter;
+
             }}
         };
         tiempo.start();
