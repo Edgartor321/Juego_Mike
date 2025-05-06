@@ -9,6 +9,10 @@ import java.io.InputStream;
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
     private int personaje_caminando;
+    private final int velocidad_animacion=10;
+    private int columna_sprite;
+    private int cuenta ;
+
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad, int gravedad) {
         super(x,y,imagen,velocidad,gravedad);
@@ -40,13 +44,16 @@ public class PersonajePrueba extends ComponentesJuego{
 
     }
 
-    protected void recorteImagenes(){
-        this.personaje_caminando=0;
-        for (int i = 0; i <3; i++) {
-            this.personaje_caminando=i*32;
+    private void recorteImagenes() {
+        cuenta++;
+        if (cuenta >= velocidad_animacion && columna_sprite<=2) {
+            cuenta = 0;
+            columna_sprite++;
+        } else if (columna_sprite>2) {
+            columna_sprite=0;
         }
+        personaje_caminando = columna_sprite*32;
     }
-
     @Override
     public void graficar(GraphicsContext g) {
         //Uso de DrawImage
