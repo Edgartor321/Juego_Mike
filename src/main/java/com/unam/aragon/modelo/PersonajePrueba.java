@@ -9,7 +9,7 @@ import java.io.InputStream;
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
     private int personaje_caminando;
-    private final int velocidad_animacion=30;
+    private final int velocidad_animacion=15;
     private int columna_sprite;
     private int cuenta ;
 

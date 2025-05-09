@@ -62,7 +62,7 @@ public class HelloApplication extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo.jpg", 1,1f);
-        personajePrueba =new PersonajePrueba(300,300,"Mike.png",3,1);
+        personajePrueba =new PersonajePrueba(300,300,"Mike.png",1,1);
         teclado();
     }
 
