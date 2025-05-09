@@ -9,7 +9,7 @@ import java.io.InputStream;
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
     private int personaje_caminando;
-    private final int velocidad_animacion=10;
+    private final int velocidad_animacion=15;
     private int columna_sprite;
     private int cuenta ;
 
@@ -35,8 +35,8 @@ public class PersonajePrueba extends ComponentesJuego{
                     if (der&&this.getX()<HelloApplication.anchura_panel){
                         this.setX((int)(this.getX()+velocidad));
                         //System.out.println("derecha");
-
                     }
+        //System.out.println(this.getX()+this.getY());
     }
 
     @Override
