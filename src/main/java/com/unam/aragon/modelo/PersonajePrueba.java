@@ -1,8 +1,7 @@
 package com.unam.aragon.modelo;
-import com.unam.aragon.arranque.HelloApplication;
+import com.unam.aragon.arranque.Inicio;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.InputStream;
 
@@ -12,10 +11,11 @@ public class PersonajePrueba extends ComponentesJuego{
     private final int velocidad_animacion=15;
     private int columna_sprite;
     private int cuenta ;
+    private int rotacion=1;
 
 
-    public PersonajePrueba(int x, int y, String imagen, int velocidad, int gravedad) {
-        super(x,y,imagen,velocidad,gravedad);
+    public PersonajePrueba(int x, int y, String imagen, int velocidad) {
+        super(x,y,imagen,velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
     }
@@ -24,16 +24,18 @@ public class PersonajePrueba extends ComponentesJuego{
             this.setY((int) (this.getY()-velocidad));
 //            System.out.println("arriba");
 
-        } if (abajo&&this.getY()<HelloApplication.altura_panel){
+        } if (abajo&&this.getY()< Inicio.altura_panel){
                 this.setY((int)(this.getY()+velocidad));
 //            System.out.println("abajo");
         }
                 if (izq&&this.getX()>0){
                     this.setX((int)(this.getX()-velocidad));
+                    this.rotacion=-1;
 //                    System.out.println("izquierda");
                 }
-                    if (der&&this.getX()<HelloApplication.anchura_panel){
+                    if (der&&this.getX()< Inicio.anchura_panel){
                         this.setX((int)(this.getX()+velocidad));
+                        this.rotacion=1;
                         //System.out.println("derecha");
                     }
         //System.out.println(this.getX()+this.getY());
@@ -67,7 +69,8 @@ public class PersonajePrueba extends ComponentesJuego{
 //        dw - the destination rectangle's width.
 //        dh - the destination rectangle's height.
         recorteImagenes();
-        g.drawImage(sprite_Map_jugador,personaje_caminando,0,32,32,x,y,64*HelloApplication.escala,64*HelloApplication.escala);
+        //g.scale(-1,1);
+        g.drawImage(sprite_Map_jugador,personaje_caminando,0,32,32,x,y,64* Inicio.escala,64* Inicio.escala);
 
     }
 

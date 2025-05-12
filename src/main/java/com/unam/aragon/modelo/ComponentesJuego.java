@@ -7,14 +7,12 @@ public abstract class ComponentesJuego {
     protected int y;
     protected String imagen;
     protected int velocidad;
-    protected float gravedad;
 
-    public ComponentesJuego(int x, int y, String imagen, int velocidad, float gravedad) {
+    public ComponentesJuego(int x, int y, String imagen, int velocidad) {
         this.x = x;
         this.y = y;
         this.imagen = imagen;
         this.velocidad = velocidad;
-        this.gravedad = gravedad;
     }
 
     public int getX() {
@@ -49,13 +47,6 @@ public abstract class ComponentesJuego {
         this.velocidad = velocidad;
     }
 
-    public float getGravedad() {
-        return gravedad;
-    }
-
-    public void setGravedad(float gravedad) {
-        this.gravedad = gravedad;
-    }
     public abstract void logicaObjeto();
     public abstract void graficar (GraphicsContext g);
 }

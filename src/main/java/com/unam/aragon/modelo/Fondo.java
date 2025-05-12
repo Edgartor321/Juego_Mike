@@ -10,8 +10,8 @@ public class Fondo extends ComponentesJuego{
     private Image imagen;
     private Image imagenDos;
 
-    public Fondo(int x, int y, String imagen, int velocidad, float gravedad) {
-        super(x, y, imagen, velocidad, gravedad);
+    public Fondo(int x, int y, String imagen, int velocidad) {
+        super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.imagen =new Image(ruta);
         ruta=Fondo.class.getResourceAsStream("fondo2.jpg");
