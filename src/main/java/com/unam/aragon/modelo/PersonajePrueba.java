@@ -70,7 +70,7 @@ public class PersonajePrueba extends ComponentesJuego{
 //        dh - the destination rectangle's height.
         recorteImagenes();
         //g.scale(-1,1);
-        g.drawImage(sprite_Map_jugador,personaje_caminando,0,32,32,x,y,64* Inicio.escala,64* Inicio.escala);
+        g.drawImage(sprite_Map_jugador,personaje_caminando,0,32,32,x,y,64* Inicio.escala*1.2,64* Inicio.escala*1.2);
 
     }
 
