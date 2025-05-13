@@ -11,7 +11,10 @@ public class PersonajePrueba extends ComponentesJuego{
     private final int velocidad_animacion=15;
     private int columna_sprite;
     private int cuenta ;
-    private int rotacion=1;
+    private int gravedad =2;
+    private boolean toca_suelo =true;
+    private int fuerza_salto =8;
+    private int velocidad_y=0;
 
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad) {
@@ -19,31 +22,37 @@ public class PersonajePrueba extends ComponentesJuego{
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
     }
-    public void movimiento(boolean arriba, boolean abajo, boolean izq, boolean der){
-        if (arriba&&this.getY()>0){
-            this.setY((int) (this.getY()-velocidad));
-//            System.out.println("arriba");
-
-        } if (abajo&&this.getY()< Inicio.altura_panel){
-                this.setY((int)(this.getY()+velocidad));
-//            System.out.println("abajo");
+    public void movimiento(boolean arriba, boolean abajo, boolean izq, boolean der, boolean subir){
+        //camine de izquierda a derecha
+        if (izq) {
+            this.setX(this.getX() - velocidad);
         }
-                if (izq&&this.getX()>0){
-                    this.setX((int)(this.getX()-velocidad));
-                    this.rotacion=-1;
-//                    System.out.println("izquierda");
-                }
-                    if (der&&this.getX()< Inicio.anchura_panel){
-                        this.setX((int)(this.getX()+velocidad));
-                        this.rotacion=1;
-                        //System.out.println("derecha");
-                    }
-        //System.out.println(this.getX()+this.getY());
+        if (der) {
+            this.setX(this.getX() + velocidad);
+        }
+
+        // Salto
+        if (arriba && toca_suelo) {
+            velocidad_y = -fuerza_salto;
+            toca_suelo = false;
+        }
     }
 
     @Override
     public void logicaObjeto() {
+        if(!toca_suelo){
+           velocidad_y+= gravedad;
+            y += velocidad_y;
+            int altura_personaje = 100;
+            int suelo_y =Inicio.altura_panel - altura_personaje;
 
+            if (y>= suelo_y){
+                y=suelo_y;
+                velocidad_y=0;
+                toca_suelo =true;
+            }
+
+        }
     }
 
     private void recorteImagenes() {
