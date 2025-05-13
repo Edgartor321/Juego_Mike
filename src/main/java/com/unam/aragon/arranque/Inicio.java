@@ -22,14 +22,12 @@ public class Inicio extends Application {
     private Fondo fondo;
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
-    public static final int cuadros_en_ancho = 45;
-    public static final int cuadros_en_largo = 25;
+    public static final int cuadros_en_ancho = 30;
+    public static final int cuadros_en_largo = 10;
     public static final float escala = 1f;
     public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
     public static final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
     public static final int altura_panel = tamano_cuadro * cuadros_en_largo;
-    public static final int cuadros_en_ancho_mundo = 50;
-    public static final int cuadros_en_largo_mundo = 26;
     //Input Loger variables
     private boolean arriba_presionada=false;
     private boolean abajo_presionada=false;
@@ -60,7 +58,7 @@ public class Inicio extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo.jpg", 1);
-        personajePrueba =new PersonajePrueba(300,300,"Mike.png",1);
+        personajePrueba =new PersonajePrueba(150,100,"Mike.png",1);
         teclado();
         mapa =new Mapa(0,0,null,1);
     }
@@ -69,25 +67,17 @@ public class Inicio extends Application {
         escena.setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()){
                 case SPACE -> arriba_presionada=true;
-                //case S -> abajo_presionada=true;
-                case A -> izq_presionada=true;
-                case D -> der_presionada=true;
-                //case UP -> arriba_presionada=true;
-                //case DOWN -> abajo_presionada=true;
-                case LEFT -> izq_presionada=true;
-                case RIGHT -> der_presionada=true;
+                case S -> abajo_presionada=true;
+                case UP -> arriba_presionada=true;
+                case DOWN -> abajo_presionada=true;
             }});
 
         escena.setOnKeyReleased(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case SPACE -> arriba_presionada = false;
-                //case S -> abajo_presionada = false;
-                case A -> izq_presionada = false;
-                case D -> der_presionada = false;
-                //case UP -> arriba_presionada = false;
-                //case DOWN -> abajo_presionada = false;
-                case LEFT -> izq_presionada = false;
-                case RIGHT -> der_presionada = false;
+                case UP -> arriba_presionada = false;
+                case DOWN -> abajo_presionada = false;
+                case S -> abajo_presionada = false;
             }});
     }
 
@@ -100,7 +90,7 @@ public class Inicio extends Application {
         this.personajePrueba.logicaObjeto();
     }
     private void actualizar(){
-        this.personajePrueba.movimiento(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
+        this.personajePrueba.movimiento(arriba_presionada,abajo_presionada);
     }
 
     //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
