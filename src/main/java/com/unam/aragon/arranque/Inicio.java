@@ -129,7 +129,7 @@ public class Inicio extends Application {
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
 
                 if (tiempoActual - fps_timer >= 1000000000) {
-                    //System.out.println("FPS: " + fps_counter);
+                    System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
                     //fps_animacion=fps_counter;
