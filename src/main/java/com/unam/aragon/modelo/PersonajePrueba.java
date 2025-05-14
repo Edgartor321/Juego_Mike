@@ -8,7 +8,7 @@ import java.io.InputStream;
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
     private int personaje_caminando;
-    private final int velocidad_animacion=15;
+    private final int velocidad_animacion=7;
     private int columna_sprite;
     private int cuenta ;
     private int gravedad =1;
@@ -57,10 +57,10 @@ public class PersonajePrueba extends ComponentesJuego{
 
     private void recorteImagenes() {
         cuenta++;
-        if (cuenta >= velocidad_animacion && columna_sprite<=2) {
+        if (cuenta >= velocidad_animacion && columna_sprite<=4) {
             cuenta = 0;
             columna_sprite++;
-        } else if (columna_sprite>2) {
+        } else if (columna_sprite>4) {
             columna_sprite=0;
         }
         personaje_caminando = columna_sprite*32;
@@ -79,7 +79,7 @@ public class PersonajePrueba extends ComponentesJuego{
 //        dh - the destination rectangle's height.
         recorteImagenes();
         //g.scale(-1,1);
-        g.drawImage(sprite_Map_jugador,personaje_caminando,0,32,32,x,y,64* Inicio.escala,64* Inicio.escala);
+        g.drawImage(sprite_Map_jugador,personaje_caminando,32,32,32,x,y,64* Inicio.escala,64* Inicio.escala);
 
     }
 
