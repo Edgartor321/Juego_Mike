@@ -9,6 +9,7 @@ public abstract class ComponentesJuego {
     protected String imagen;
     protected int velocidad;
 
+
     public ComponentesJuego(int x, int y, String imagen, int velocidad) {
         this.x = x;
         this.y = y;
