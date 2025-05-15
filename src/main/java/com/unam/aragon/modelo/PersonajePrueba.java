@@ -3,6 +3,7 @@ import com.unam.aragon.arranque.Inicio;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.io.InputStream;
 
 public class PersonajePrueba extends ComponentesJuego{
@@ -36,16 +37,6 @@ public class PersonajePrueba extends ComponentesJuego{
             velocidad_y = -fuerza_salto;
             toca_suelo = false;
         }
-                if (izq&&this.getX()>0){
-                    this.setX((int)(this.getX()-velocidad));
-                    this.rotacion=-1;
-//                    System.out.println("izquierda");
-                }
-                    if (der&&this.getX()< Inicio.anchura_panel){
-                        this.setX((int)(this.getX()+velocidad));
-                        this.rotacion=1;
-                        //System.out.println("derecha");
-                    }
         //System.out.println(this.getX()+this.getY());
     }
 
@@ -83,6 +74,9 @@ public class PersonajePrueba extends ComponentesJuego{
 
     public Rectangle getBounds() {
         return new Rectangle(getX(), getY(), 32, 32);
+    }
+
+    public void restarVida() {
     }
 }
 
