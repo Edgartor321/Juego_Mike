@@ -11,9 +11,12 @@ public class MotorJuego {
     private List<ComponentesJuego> objetos;
 
     public MotorJuego() {
-        mike = new PersonajePrueba(50, 50, "", 1);
+        mike = new PersonajePrueba(50, 300, "", 1);
+
         objetos = new ArrayList<>();
-        objetos.add(new Obstaculo(100, 50, "", 1));
+        // Ejemplo: añadir varios obstáculos con imagen y velocidad
+        objetos.add(new Obstaculo(600, 320, "", 1));
+        objetos.add(new Obstaculo(900, 320, "", 1));
     }
 
     public void actualizar() {
@@ -21,15 +24,25 @@ public class MotorJuego {
 
         for (ComponentesJuego obj : objetos) {
             obj.logicaObjeto();
+
+            if (Colisiones.detectarColision(mike, obj)) {
+                mike.restarVida();  // quita vida a mike
+
+                }
+            }
         }
-    }
+
 
     public void graficarTodos(GraphicsContext g) {
         mike.graficar(g);
+
         for (ComponentesJuego obj : objetos) {
             obj.graficar(g);
         }
     }
-}
 
+    public PersonajePrueba getMike() {
+        return mike;
+    }
+}
 

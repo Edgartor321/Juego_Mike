@@ -98,6 +98,7 @@ public class Inicio extends Application {
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
+
     }
     private void actualizar(){
         this.personajePrueba.movimiento(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
