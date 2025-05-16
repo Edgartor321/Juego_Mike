@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 public class Fondo extends ComponentesJuego{
-    private int bgx = 0;
+    private int bgx = Inicio.anchura_panel;
     private Image imagen;
     private Image imagenDos;
 
@@ -25,11 +25,11 @@ public class Fondo extends ComponentesJuego{
     public void logicaObjeto(){
         x-=velocidad;
         bgx -= velocidad;
-        if (x == 0) {
-            x = (Inicio.anchura_panel)*2;
+        if (x == (Inicio.anchura_panel*-1)) {
+            x = (Inicio.anchura_panel);
         }
-        if (bgx == 600) {
-            bgx = (Inicio.anchura_panel)*2;
+        if (bgx == -Inicio.anchura_panel*-1) {
+            bgx = (Inicio.anchura_panel);
         }
     }
 
