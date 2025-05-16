@@ -65,7 +65,6 @@ public class Inicio extends Application {
         personajePrueba =new PersonajePrueba(300,300,"Mike.png",1);
         teclado();
         mapa =new Mapa(0,0,null,1);
-        MusicaCiclica entrada = new MusicaCiclica("musica_entrada");
     }
 
     private void teclado() {

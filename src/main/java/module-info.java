@@ -1,6 +1,7 @@
 module com.unam.aragon.game {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens com.unam.aragon to javafx.fxml;

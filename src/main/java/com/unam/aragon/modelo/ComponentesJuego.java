@@ -1,6 +1,7 @@
 package com.unam.aragon.modelo;
 
 import javafx.scene.canvas.GraphicsContext;
+import java.awt.Rectangle;
 
 public abstract class ComponentesJuego {
     protected int x;
@@ -50,4 +51,10 @@ public abstract class ComponentesJuego {
 
     public abstract void logicaObjeto();
     public abstract void graficar (GraphicsContext g);
+
+    public Rectangle getBounds(int ancho, int alto) {
+        return new Rectangle(x, y, ancho, alto);
+    }
+
+
 }
