@@ -1,5 +1,6 @@
 package com.unam.aragon.arranque;
 
+import com.unam.aragon.extras.MusicaCiclica;
 import com.unam.aragon.modelo.Mapa;
 import com.unam.aragon.modelo.PersonajePrueba;
 import javafx.animation.AnimationTimer;
@@ -64,6 +65,7 @@ public class Inicio extends Application {
         personajePrueba =new PersonajePrueba(300,300,"Mike.png",1);
         teclado();
         mapa =new Mapa(0,0,null,1);
+        MusicaCiclica entrada = new MusicaCiclica("musica_entrada");
     }
 
     private void teclado() {
