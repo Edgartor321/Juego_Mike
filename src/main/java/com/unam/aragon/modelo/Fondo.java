@@ -1,12 +1,13 @@
 package com.unam.aragon.modelo;
 
+import com.unam.aragon.arranque.Inicio;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
 
 public class Fondo extends ComponentesJuego{
-    private int bgx =-600;
+    private int bgx = 0;
     private Image imagen;
     private Image imagenDos;
 
@@ -14,7 +15,7 @@ public class Fondo extends ComponentesJuego{
         super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.imagen =new Image(ruta);
-        ruta=Fondo.class.getResourceAsStream("fondo2.jpg");
+        ruta=Fondo.class.getResourceAsStream("fondo0.jpg");
         this.imagenDos =new Image(ruta);
     }
     public void graficar(GraphicsContext g){
@@ -22,13 +23,13 @@ public class Fondo extends ComponentesJuego{
         g.drawImage(imagenDos,bgx, y);
     }
     public void logicaObjeto(){
-        x+=velocidad;
-        bgx += velocidad;
-        if (x == 600) {
-            x = -600;
+        x-=velocidad;
+        bgx -= velocidad;
+        if (x == 0) {
+            x = (Inicio.anchura_panel)*2;
         }
         if (bgx == 600) {
-            bgx = -600;
+            bgx = (Inicio.anchura_panel)*2;
         }
     }
 

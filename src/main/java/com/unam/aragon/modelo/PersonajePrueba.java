@@ -9,33 +9,31 @@ import java.io.InputStream;
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
     private int personaje_caminando;
-    private final int velocidad_animacion = 15;
+    private final int velocidad_animacion = 10;
     private int columna_sprite;
     private int cuenta ;
     private int gravedad =1;
     private boolean toca_suelo =false;
     private int fuerza_salto =12;
     private int velocidad_y=0;
+    private int selector_horizontal=0;
 
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad) {
-        super(x,y,imagen,velocidad);
+        super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
     }
     public void movimiento(boolean arriba, boolean abajo){
-        //camine de izquierda a derecha
-//        if (izq) {
-//            this.setX(this.getX() - velocidad);
-//        }
-//        if (der) {
-//            this.setX(this.getX() + velocidad);
-//        }
-
-        // Salto
         if (arriba && toca_suelo) {
             velocidad_y = -fuerza_salto;
             toca_suelo = false;
+            selector_horizontal=1;
+
+        }if (abajo && toca_suelo) {
+            selector_horizontal=2;
+        }else{
+            selector_horizontal=0;
         }
         //System.out.println(this.getX()+this.getY());
     }
@@ -52,6 +50,7 @@ public class PersonajePrueba extends ComponentesJuego{
                 y=suelo_y;
                 velocidad_y=0;
                 toca_suelo =true;
+                selector_horizontal=0;
             }
 
         }
@@ -69,7 +68,8 @@ public class PersonajePrueba extends ComponentesJuego{
     }
     @Override
     public void graficar(GraphicsContext g) {
-        g.drawImage(sprite_Map_jugador, personaje_caminando, 32, 32, 32, x, y, 64 * Inicio.escala , 64 * Inicio.escala );
+        g.drawImage(sprite_Map_jugador, personaje_caminando, 32*selector_horizontal, 32, 32, x, y, 64 * Inicio.escala , 64 * Inicio.escala );
+        recorteImagenes();
     }
 
     public Rectangle getBounds() {

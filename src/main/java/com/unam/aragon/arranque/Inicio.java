@@ -20,9 +20,10 @@ public class Inicio extends Application {
     private Scene escena;
     private Canvas hoja;
     private Fondo fondo;
+    private Mapa mapa;
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
-    public static final int cuadros_en_ancho = 30;
+    public static final int cuadros_en_ancho = 25;
     public static final int cuadros_en_largo = 10;
     public static final float escala = 1f;
     public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
@@ -31,12 +32,8 @@ public class Inicio extends Application {
     //Input Loger variables
     private boolean arriba_presionada=false;
     private boolean abajo_presionada=false;
-    private boolean der_presionada=false;
-    private boolean izq_presionada=false;
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
-    private Mapa mapa;
-    //private static int fps_animacion;
 
     //Sitio de arranque
     @Override
@@ -57,10 +54,10 @@ public class Inicio extends Application {
         hoja = new Canvas(anchura_panel, altura_panel);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
-        fondo = new Fondo(0, 0, "fondo.jpg", 1);
+        fondo = new Fondo(0, 0, "fondo0.jpg", 1);
         personajePrueba =new PersonajePrueba(150,100,"Mike.png",1);
+        mapa =new Mapa(0,0,"",1);
         teclado();
-        mapa =new Mapa(0,0,null,1);
     }
 
     private void teclado() {
