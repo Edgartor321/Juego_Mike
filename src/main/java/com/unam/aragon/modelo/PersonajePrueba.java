@@ -32,9 +32,10 @@ public class PersonajePrueba extends ComponentesJuego{
 
         }if (abajo && toca_suelo) {
             selector_horizontal=2;
-        }else{
-            selector_horizontal=0;
         }
+//        else{
+//            selector_horizontal=0;
+//        }
         //System.out.println(this.getX()+this.getY());
     }
 
