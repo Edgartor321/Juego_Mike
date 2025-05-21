@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
@@ -14,17 +16,17 @@ public class PersonajePrueba extends ComponentesJuego{
     private int cuenta ;
     private int gravedad =1;
     private boolean toca_suelo =false;
-    private int fuerza_salto =12;
+    private int fuerza_salto =18;
     private int velocidad_y=0;
     private int selector_horizontal=0;
-    private ComponentesJuego Mapa;
-    private ComponentesJuego PersonajePrueba;
+    private int vidas=0;
 
 
-    public PersonajePrueba(int x, int y, String imagen, int velocidad) {
+    public PersonajePrueba(int x, int y, String imagen, int velocidad, int vidas) {
         super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
+        this.vidas=vidas;
     }
     public void movimiento(boolean arriba, boolean abajo){
         if (arriba && toca_suelo) {
@@ -52,13 +54,6 @@ public class PersonajePrueba extends ComponentesJuego{
                 toca_suelo =true;
                 selector_horizontal=0;
             }
-            boolean state= Colisiones.detectarColision(PersonajePrueba,Mapa);
-            if (state){
-                restarVida();
-            }else {
-                System.out.println("Test");
-            }
-
         }
     }
 
@@ -83,6 +78,31 @@ public class PersonajePrueba extends ComponentesJuego{
 
     public void restarVida() {
         System.out.println("Quitando vida");
+        vidas--;
+        if(vidas<=0){
+            terminarJuego();
+        }
+    }
+
+    private void terminarJuego() {
+        System.out.println("Juego terminado");
+    }
+
+    public void verificarColisiones(ArrayList<Obstaculo> objetos) {
+        this.cuenta++;
+        if (this.cuenta >= 10) {
+            this.cuenta = 0;
+            for (ComponentesJuego obj:objetos){
+                if (Colisiones.detectarColision(this,obj)){
+                    restarVida();
+                    break;
+        }
+            }
+        }
+    }
+
+    public int getVidas() {
+        return vidas;
     }
 }
 

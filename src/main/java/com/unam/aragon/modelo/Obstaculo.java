@@ -28,5 +28,11 @@ public class Obstaculo extends ComponentesJuego {
         return new Rectangle(x, y, ANCHO, ALTO);
     }
 
+    public int getANCHO() {
+        return ANCHO;
+    }
 
+    public int getALTO() {
+        return ALTO;
+    }
 }

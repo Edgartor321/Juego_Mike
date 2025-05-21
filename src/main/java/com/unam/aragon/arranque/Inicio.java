@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class Inicio extends Application {
     private GraphicsContext graficos;
@@ -19,7 +20,7 @@ public class Inicio extends Application {
     private Canvas hoja;
     private Fondo fondo;
     private Mapa mapa;
-    private Obstaculo obstaculo;
+
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
     public static final int cuadros_en_ancho = 25;
@@ -33,6 +34,7 @@ public class Inicio extends Application {
     private boolean abajo_presionada=false;
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
+    private ArrayList<Obstaculo> objeto;
 
     //Sitio de arranque
     @Override
@@ -54,10 +56,10 @@ public class Inicio extends Application {
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "fondo0.jpg", 1);
-        personajePrueba =new PersonajePrueba(150,100,"Mike.png",1);
-        mapa =new Mapa(0,0,"",1);
-        obstaculo=new Obstaculo(160,250,"Tileset.png",1);
+        personajePrueba =new PersonajePrueba(150,100,"Mike.png",1,3);
         teclado();
+        mapa=new Mapa(anchura_panel,tamano_cuadro,4);
+        objeto=mapa.getObst();
     }
 
     private void teclado() {
@@ -83,14 +85,20 @@ public class Inicio extends Application {
     private void graficar(){
         fondo.graficar(graficos);
         personajePrueba.graficar(graficos);
-        mapa.graficar(graficos);
-        obstaculo.graficar(graficos);
+        for (Obstaculo obstaculo:objeto){
+            obstaculo.graficar(graficos);
+        }
+
 
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
-        mapa.logicaObjeto();
+        personajePrueba.verificarColisiones(objeto);
+        for (Obstaculo movil:objeto){
+            movil.logicaObjeto();
+        }
+        mapa.logica();
 
 
     }

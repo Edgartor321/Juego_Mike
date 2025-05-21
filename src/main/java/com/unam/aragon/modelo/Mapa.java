@@ -1,50 +1,63 @@
 package com.unam.aragon.modelo;
 
 import com.unam.aragon.arranque.Inicio;
-import javafx.scene.canvas.GraphicsContext;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Timer;
 
-public class Mapa extends ComponentesJuego{
-    private int desplazamiento_fondo=1;
-    private ArrayList<Rectangle> obstaculos = new ArrayList<>();
+public class Mapa {
+    private int desplazamiento=0;
+    private ArrayList<Obstaculo> obst=new ArrayList<>();
+    private Random random=new Random();
     private int ancho,alto;
-    private double random;
+    private int cuenta;
 
-    public Mapa(int x, int y, String imagen, int velocidad) {
-        super(x, y, imagen, velocidad);
-        this.ancho=Inicio.anchura_panel;
-        this.alto=Inicio.altura_panel;
-        this.desplazamiento_fondo=velocidad;
-
+    public Mapa(int ancho, int alto,int velocidad) {
+        this.ancho = ancho;
+        this.alto = alto;
+        desplazamiento=velocidad;
     }
 
-    @Override
-    public void logicaObjeto() {
-        generarObstaculos();
-
-    }
-
-    @Override
-    public void graficar(GraphicsContext g) {
-
-
-    }
-    public double generadorNumero(){
-        random=Math.random();
-        //System.out.println(random);
-        return random;
-    }
-    public void generarObstaculos(){
-        double aleatorio= generadorNumero();
-        if (aleatorio>0&&aleatorio<=0.60){ //uno
-            Obstaculo uno= new Obstaculo(Inicio.anchura_panel-50,68,"Tileset.png",1);
-        } else if (aleatorio>0.60&&aleatorio<=0.90) { //dos
-
-        }else{//tres
-
+    private void crono() {
+        this.cuenta++;
+        if (this.cuenta >= 60) {
+            this.cuenta = 0;
+            crearObstaculo();
 
         }
     }
+
+    private void moverObstaculo(){
+        for (int i = 0; i < obst.size(); i++) {
+            Obstaculo obstaculo = obst.get(i);
+            int nueva_pos=obstaculo.getX()-this.desplazamiento;
+            obstaculo.setX(nueva_pos);
+            if (obstaculo.getX()+obstaculo.getANCHO()<0){
+                obst.remove(i);
+                i--;
+            }
+        }
+    }
+
+    private void crearObstaculo() {
+        int valor=random.nextInt(100);
+        if (valor>40){
+            Obstaculo obstaculo =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,230,"Tileset.png",1);
+            obst.add(obstaculo);
+        }
+    }
+    public ArrayList <Obstaculo> getObst(){
+        return obst;
+    }
+    public void logica(){
+        crono();
+        moverObstaculo();
+    }
+
 }
+
+
+
+
+
