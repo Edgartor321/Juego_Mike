@@ -18,6 +18,7 @@ public class PersonajePrueba extends ComponentesJuego{
     private int velocidad_y=0;
     private int selector_horizontal=0;
     private int vidas=3;
+    //El contador de vidas recomiendo inicializarlo en el constructor, para poder hacer un juego con capacidad de reinicio.
 
 
 
@@ -25,7 +26,7 @@ public class PersonajePrueba extends ComponentesJuego{
         super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
-        terminarJuego();
+        terminarJuego();//No colocar aquí, el constructor solo es llamado en la creación del obejto
     }
     public void movimiento(boolean arriba, boolean abajo){
         if (arriba && toca_suelo) {
