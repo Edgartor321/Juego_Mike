@@ -2,9 +2,9 @@ package com.unam.aragon.modelo;
 import com.unam.aragon.arranque.Inicio;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
-import java.awt.*;
+import java.util.List;
 import java.io.InputStream;
+import java.awt.Rectangle;
 
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
@@ -17,12 +17,15 @@ public class PersonajePrueba extends ComponentesJuego{
     private int fuerza_salto =12;
     private int velocidad_y=0;
     private int selector_horizontal=0;
+    private int vidas=3;
+
 
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad) {
         super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
+        terminarJuego();
     }
     public void movimiento(boolean arriba, boolean abajo){
         if (arriba && toca_suelo) {
@@ -55,6 +58,7 @@ public class PersonajePrueba extends ComponentesJuego{
             }
 
         }
+
     }
 
     private void recorteImagenes() {
@@ -77,7 +81,30 @@ public class PersonajePrueba extends ComponentesJuego{
         return new Rectangle(getX(), getY(), 32, 32);
     }
 
-    public void restarVida() {
+    public int getVidas() {
+        return vidas;
+    }
+    public void restarVidas(){
+        vidas--;
+        System.out.println("Haz perdido 1 vida");
+        if(vidas<=0){
+            terminarJuego();
+        }
+    }
+
+    private void terminarJuego() {
+        System.out.println("Fin del juego");
+    }
+
+
+
+    public void verificarColisiones(List<ComponentesJuego>objetos){
+        for (ComponentesJuego obj : objetos) {
+            if(Colisiones.detectarColision(this, obj)){
+                restarVidas();
+            break;
+            }
+        }
     }
 }
 

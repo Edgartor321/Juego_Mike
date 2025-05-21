@@ -1,8 +1,6 @@
 package com.unam.aragon.arranque;
 
-import com.unam.aragon.extras.MusicaCiclica;
-import com.unam.aragon.modelo.Mapa;
-import com.unam.aragon.modelo.PersonajePrueba;
+import com.unam.aragon.modelo.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,7 +11,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import com.unam.aragon.modelo.Fondo;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inicio extends Application {
     private GraphicsContext graficos;
@@ -39,7 +38,7 @@ public class Inicio extends Application {
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
     private Mapa mapa;
-
+    private List<ComponentesJuego> objetos = new ArrayList<>();
     //private static int fps_animacion;
 
     //Sitio de arranque
@@ -65,6 +64,9 @@ public class Inicio extends Application {
         personajePrueba =new PersonajePrueba(300,300,"Mike.png",1);
         teclado();
         mapa =new Mapa(0,0,null,1);
+        objetos = new ArrayList<>();
+        objetos.add(new Obstaculo(300, 700, "colision.png", 0));
+        objetos.add(new Obstaculo(700, 300, "colision.png", 0));
     }
 
     private void teclado() {
@@ -90,13 +92,21 @@ public class Inicio extends Application {
     private void graficar(){
         fondo.graficar(graficos);
         personajePrueba.graficar(graficos);
+        for (ComponentesJuego obj : objetos) {
+            obj.graficar(graficos);
+        }
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
+        personajePrueba.verificarColisiones(objetos);
+        for (ComponentesJuego obj : objetos) {
+            obj.logicaObjeto();
+        }
     }
     private void actualizar(){
-        this.personajePrueba.movimiento(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
+        //this.personajePrueba.movimiento(arriba_presionada,abajo_presionada,izq_presionada,der_presionada);
+        personajePrueba.movimiento(arriba_presionada, abajo_presionada);
     }
 
     //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
