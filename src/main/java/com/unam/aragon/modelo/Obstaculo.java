@@ -11,7 +11,7 @@ public class Obstaculo extends ComponentesJuego {
 
     public Obstaculo(int x, int y, String imagen, int velocidad) {
         super(x, y, imagen, velocidad);
-        img = new Image(getClass().getResourceAsStream(imagen));
+        this.img = new Image(getClass().getResourceAsStream(imagen));
     }
 
     @Override
@@ -27,4 +27,6 @@ public class Obstaculo extends ComponentesJuego {
     public Rectangle getBounds() {
         return new Rectangle(x, y, ANCHO, ALTO);
     }
+
+
 }

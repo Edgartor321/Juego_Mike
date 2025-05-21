@@ -1,7 +1,6 @@
 package com.unam.aragon.arranque;
 
-import com.unam.aragon.modelo.Mapa;
-import com.unam.aragon.modelo.PersonajePrueba;
+import com.unam.aragon.modelo.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -12,7 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import com.unam.aragon.modelo.Fondo;
 
 public class Inicio extends Application {
     private GraphicsContext graficos;
@@ -21,6 +19,7 @@ public class Inicio extends Application {
     private Canvas hoja;
     private Fondo fondo;
     private Mapa mapa;
+    private Obstaculo obstaculo;
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
     public static final int cuadros_en_ancho = 25;
@@ -29,7 +28,7 @@ public class Inicio extends Application {
     public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
     public static final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
     public static final int altura_panel = tamano_cuadro * cuadros_en_largo;
-    //Input Loger variables
+    //Teclado variables
     private boolean arriba_presionada=false;
     private boolean abajo_presionada=false;
     private PersonajePrueba personajePrueba;
@@ -40,7 +39,7 @@ public class Inicio extends Application {
     public void start(Stage stage) throws IOException, URISyntaxException {
         arrancador();
         graficar();
-        stage.setTitle("GOTY del Año");
+        stage.setTitle("Mike VS Microsoft");
         stage.setScene(escena);
         stage.show();
         stage.setResizable(false);
@@ -57,6 +56,7 @@ public class Inicio extends Application {
         fondo = new Fondo(0, 0, "fondo0.jpg", 1);
         personajePrueba =new PersonajePrueba(150,100,"Mike.png",1);
         mapa =new Mapa(0,0,"",1);
+        obstaculo=new Obstaculo(160,250,"Tileset.png",1);
         teclado();
     }
 
@@ -64,6 +64,7 @@ public class Inicio extends Application {
         escena.setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()){
                 case SPACE -> arriba_presionada=true;
+                case W -> arriba_presionada=true;
                 case S -> abajo_presionada=true;
                 case UP -> arriba_presionada=true;
                 case DOWN -> abajo_presionada=true;
@@ -72,6 +73,7 @@ public class Inicio extends Application {
         escena.setOnKeyReleased(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case SPACE -> arriba_presionada = false;
+                case W -> arriba_presionada=false;
                 case UP -> arriba_presionada = false;
                 case DOWN -> abajo_presionada = false;
                 case S -> abajo_presionada = false;
@@ -81,10 +83,15 @@ public class Inicio extends Application {
     private void graficar(){
         fondo.graficar(graficos);
         personajePrueba.graficar(graficos);
+        mapa.graficar(graficos);
+        obstaculo.graficar(graficos);
+
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
+        mapa.logicaObjeto();
+
 
     }
     private void actualizar(){

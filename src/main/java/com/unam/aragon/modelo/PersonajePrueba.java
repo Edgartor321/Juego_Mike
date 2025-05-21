@@ -17,6 +17,8 @@ public class PersonajePrueba extends ComponentesJuego{
     private int fuerza_salto =12;
     private int velocidad_y=0;
     private int selector_horizontal=0;
+    private ComponentesJuego Mapa;
+    private ComponentesJuego PersonajePrueba;
 
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad) {
@@ -33,9 +35,6 @@ public class PersonajePrueba extends ComponentesJuego{
         }if (abajo && toca_suelo) {
             selector_horizontal=2;
         }
-//        else{
-//            selector_horizontal=0;
-//        }
         //System.out.println(this.getX()+this.getY());
     }
 
@@ -53,6 +52,12 @@ public class PersonajePrueba extends ComponentesJuego{
                 toca_suelo =true;
                 selector_horizontal=0;
             }
+            boolean state= Colisiones.detectarColision(PersonajePrueba,Mapa);
+            if (state){
+                restarVida();
+            }else {
+                System.out.println("Test");
+            }
 
         }
     }
@@ -64,9 +69,8 @@ public class PersonajePrueba extends ComponentesJuego{
             columna_sprite++;
         } else if (columna_sprite>4) {
             columna_sprite=0;
-        }
         personaje_caminando = columna_sprite*32;
-    }
+    }}
     @Override
     public void graficar(GraphicsContext g) {
         g.drawImage(sprite_Map_jugador, personaje_caminando, 32*selector_horizontal, 32, 32, x, y, 64 * Inicio.escala , 64 * Inicio.escala );
@@ -78,6 +82,7 @@ public class PersonajePrueba extends ComponentesJuego{
     }
 
     public void restarVida() {
+        System.out.println("Quitando vida");
     }
 }
 
