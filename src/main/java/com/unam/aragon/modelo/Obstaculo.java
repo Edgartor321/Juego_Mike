@@ -21,7 +21,7 @@ public class Obstaculo extends ComponentesJuego {
 
     @Override
     public void graficar(GraphicsContext g) {
-        g.drawImage(img, x, y, ANCHO, ALTO);
+        g.drawImage(img, 0,0,32,32,x,y,ANCHO,ALTO);
     }
 
     public Rectangle getBounds() {

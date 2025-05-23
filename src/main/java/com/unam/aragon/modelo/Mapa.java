@@ -21,7 +21,7 @@ public class Mapa {
 
     private void crono() {
         this.cuenta++;
-        if (this.cuenta >= 60) {
+        if (this.cuenta >= 40) {
             this.cuenta = 0;
             crearObstaculo();
 
@@ -42,7 +42,7 @@ public class Mapa {
 
     private void crearObstaculo() {
         int valor=random.nextInt(100);
-        if (valor>40){
+        if (valor>50){
             Obstaculo obstaculo =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,230,"Tileset.png",1);
             obst.add(obstaculo);
         }

@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class Inicio extends Application {
 
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
-    public static final int cuadros_en_ancho = 25;
+    public static final int cuadros_en_ancho = 20;
     public static final int cuadros_en_largo = 10;
     public static final float escala = 1f;
     public static final int tamano_cuadro = (int) (tamano_cuadro_default * escala);
@@ -35,6 +37,7 @@ public class Inicio extends Application {
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
     private ArrayList<Obstaculo> objeto;
+    private float velocidad_abs=0;
 
     //Sitio de arranque
     @Override
@@ -55,7 +58,7 @@ public class Inicio extends Application {
         hoja = new Canvas(anchura_panel, altura_panel);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
-        fondo = new Fondo(0, 0, "fondo0.jpg", 1);
+        fondo = new Fondo(0, 0, "Comprimida.jpg", 1);
         personajePrueba =new PersonajePrueba(150,100,"Mike.png",1,3);
         teclado();
         mapa=new Mapa(anchura_panel,tamano_cuadro,4);
