@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
@@ -22,8 +21,6 @@ public class PersonajePrueba extends ComponentesJuego{
     private int selector_horizontal=0;
     public static int vidas=0;
     private long ultimoTiempoColision = 0;
-
-    private int vidas=0;
     private EfectosMusica efectosMusica = new EfectosMusica();
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad, int vidas) {
@@ -95,13 +92,14 @@ public class PersonajePrueba extends ComponentesJuego{
         System.out.println("Juego terminado");
     }
 
-    public void verificarColisiones(ArrayList<Obstaculo> objetos) {
+    public void verificarColisiones(ArrayList<Obstaculo> objetos, Marcadores marcador) {
         this.cuenta++;
         if (this.cuenta >= 10) {
             this.cuenta = 0;
             for (ComponentesJuego obj:objetos){
-                if (Colisiones.detectarColision(this,obj)){
+                if (Colisiones.detectarColision(this,obj)&&obj.tangible==true){
                     restarVida();
+                    obj.tangible=false;
                     break;
         }
             }

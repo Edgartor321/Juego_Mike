@@ -1,5 +1,6 @@
 package com.unam.aragon.arranque;
 
+import com.unam.aragon.extras.EfectosMusica;
 import com.unam.aragon.modelo.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -97,18 +98,19 @@ public class Inicio extends Application {
         for (Obstaculo obstaculo:objeto){
             obstaculo.graficar(graficos);
         }
+        marcador.graficar(graficos);
 
 
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
+        marcador.logicaObjeto();
         personajePrueba.verificarColisiones(objeto,marcador);
         for (Obstaculo movil:objeto){
             movil.logicaObjeto();
         }
         mapa.logica();
-        marcador.logicaObjeto();
     }
     private void actualizar(){
         this.personajePrueba.movimiento(arriba_presionada,abajo_presionada);
