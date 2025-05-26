@@ -8,6 +8,7 @@ public abstract class ComponentesJuego {
     protected int y;
     protected String imagen;
     protected int velocidad;
+    protected boolean tangible=true;
 
 
     public ComponentesJuego(int x, int y, String imagen, int velocidad) {
@@ -55,6 +56,6 @@ public abstract class ComponentesJuego {
     public Rectangle getBounds(int ancho, int alto) {
         return new Rectangle(x, y, ancho, alto);
     }
+    }
 
 
-}

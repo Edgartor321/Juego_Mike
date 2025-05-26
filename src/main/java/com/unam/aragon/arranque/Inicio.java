@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class Inicio extends Application {
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
         arrancador();
-//      graficar();
+        graficar();
         stage.setTitle("Mike VS Microsoft");
         stage.setScene(escena);
         stage.show();
@@ -58,12 +60,14 @@ public class Inicio extends Application {
         hoja = new Canvas(anchura_panel, altura_panel);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
-        fondo = new Fondo(0, 0, "Comprimida.jpg", 1);
+        fondo = new Fondo(0, 0, "fondo0.png", 1);
         personajePrueba =new PersonajePrueba(150,100,"Mike.png",1,3);
         teclado();
         mapa=new Mapa(anchura_panel,tamano_cuadro,4);
         objeto=mapa.getObst();
         marcador=new Marcadores(15,15,"corazon.png",1);
+
+
     }
 
     private void teclado() {
@@ -94,20 +98,17 @@ public class Inicio extends Application {
         }
         marcador.graficar(graficos);
 
-
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
-        personajePrueba.verificarColisiones(objeto, marcador);
-
+        personajePrueba.verificarColisiones(objeto,marcador);
         for (Obstaculo movil:objeto){
             movil.logicaObjeto();
         }
+
         mapa.logica();
         marcador.logicaObjeto();
-
-
     }
     private void actualizar(){
         this.personajePrueba.movimiento(arriba_presionada,abajo_presionada);
@@ -121,7 +122,6 @@ public class Inicio extends Application {
             private int fps_counter;
             private long fps_timer;
             private long uf;
-
             @Override
             public void handle(long tiempoActual) {
                 if(uf==0){
@@ -132,7 +132,6 @@ public class Inicio extends Application {
                 }
                 uf=tiempoActual;
                 fps_counter++;
-
                 logicaObjeto();
                 graficar();
                 actualizar();
@@ -153,13 +152,5 @@ public class Inicio extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public float getVelocidad_abs() {
-        return velocidad_abs;
-    }
-
-    public void setVelocidad_abs(float velocidad_abs) {
-        this.velocidad_abs = velocidad_abs;
     }
 }

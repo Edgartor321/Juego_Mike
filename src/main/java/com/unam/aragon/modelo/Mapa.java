@@ -4,7 +4,6 @@ import com.unam.aragon.arranque.Inicio;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 
 public class Mapa {
     private int desplazamiento=0;

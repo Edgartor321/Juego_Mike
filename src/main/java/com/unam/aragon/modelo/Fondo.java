@@ -31,8 +31,8 @@ public class Fondo extends ComponentesJuego{
 //        dy- la posición de coordenadas Y del rectángulo de destino.
 //        dw- el ancho del rectángulo de destino.
 //        dh- la altura del rectángulo de destino.
-        g.drawImage(imagen,0,0,400,225,x,y,Inicio.anchura_panel,Inicio.altura_panel);
-        g.drawImage(imagen,0,0,400,225,bgx,y,Inicio.anchura_panel,Inicio.altura_panel);
+        g.drawImage(imagen,0,0,800,450,x,y,Inicio.anchura_panel,Inicio.altura_panel);
+        g.drawImage(imagen,0,0,800,450,bgx,y,Inicio.anchura_panel,Inicio.altura_panel);
         //g.fillText("Puntuación: ",30,30,100);
         //g.setFill(Color.INDIANRED);
         //g.scale(3,3);
