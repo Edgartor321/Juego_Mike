@@ -1,12 +1,11 @@
 package com.unam.aragon.modelo;
 import com.unam.aragon.arranque.Inicio;
+import com.unam.aragon.extras.EfectosMusica;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
@@ -20,19 +19,23 @@ public class PersonajePrueba extends ComponentesJuego{
     private int velocidad_y=0;
     private int selector_horizontal=0;
     private int vidas=0;
-
+    private EfectosMusica efectosMusica = new EfectosMusica();
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad, int vidas) {
         super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
         this.vidas=vidas;
+
     }
     public void movimiento(boolean arriba, boolean abajo){
         if (arriba && toca_suelo) {
             velocidad_y = -fuerza_salto;
             toca_suelo = false;
             selector_horizontal=1;
+
+            efectosMusica.archivo(1);
+            efectosMusica.playMusica();
 
         }if (abajo && toca_suelo) {
             selector_horizontal=2;
@@ -54,6 +57,7 @@ public class PersonajePrueba extends ComponentesJuego{
                 toca_suelo =true;
                 selector_horizontal=0;
             }
+
         }
     }
 
@@ -96,7 +100,7 @@ public class PersonajePrueba extends ComponentesJuego{
                 if (Colisiones.detectarColision(this,obj)){
                     restarVida();
                     break;
-        }
+                }
             }
         }
     }

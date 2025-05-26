@@ -1,5 +1,6 @@
 package com.unam.aragon.arranque;
 
+import com.unam.aragon.extras.EfectosMusica;
 import com.unam.aragon.modelo.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -22,6 +23,8 @@ public class Inicio extends Application {
     private Canvas hoja;
     private Fondo fondo;
     private Mapa mapa;
+    private EfectosMusica efectosMusica;
+
 
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
@@ -32,12 +35,12 @@ public class Inicio extends Application {
     public static final int anchura_panel = tamano_cuadro * cuadros_en_ancho;
     public static final int altura_panel = tamano_cuadro * cuadros_en_largo;
     //Teclado variables
-    private boolean arriba_presionada=false;
-    private boolean abajo_presionada=false;
+    private boolean arriba_presionada = false;
+    private boolean abajo_presionada = false;
     private PersonajePrueba personajePrueba;
-    private static final int tope_fps=120;
+    private static final int tope_fps = 120;
     private ArrayList<Obstaculo> objeto;
-    private float velocidad_abs=0;
+    private float velocidad_abs = 0;
 
     //Sitio de arranque
     @Override
@@ -50,82 +53,90 @@ public class Inicio extends Application {
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         ciclo();
+        playMusica(0);
     }
 
-    private void arrancador() throws URISyntaxException{
+    private void arrancador() throws URISyntaxException {
         root = new Group();
         escena = new Scene(root, anchura_panel, altura_panel);
         hoja = new Canvas(anchura_panel, altura_panel);
         root.getChildren().add(hoja);
         graficos = hoja.getGraphicsContext2D();
         fondo = new Fondo(0, 0, "Comprimida.jpg", 1);
-        personajePrueba =new PersonajePrueba(150,100,"Mike.png",1,3);
+        personajePrueba = new PersonajePrueba(150, 100, "Mike.png", 1, 3);
         teclado();
-        mapa=new Mapa(anchura_panel,tamano_cuadro,4);
-        objeto=mapa.getObst();
+        mapa = new Mapa(anchura_panel, tamano_cuadro, 4);
+        objeto = mapa.getObst();
+        efectosMusica = new EfectosMusica();
     }
 
     private void teclado() {
         escena.setOnKeyPressed(keyEvent -> {
-            switch (keyEvent.getCode()){
-                case SPACE -> arriba_presionada=true;
-                case W -> arriba_presionada=true;
-                case S -> abajo_presionada=true;
-                case UP -> arriba_presionada=true;
-                case DOWN -> abajo_presionada=true;
-            }});
+            switch (keyEvent.getCode()) {
+                case SPACE -> arriba_presionada = true;
+                case W -> arriba_presionada = true;
+                case S -> abajo_presionada = true;
+                case UP -> arriba_presionada = true;
+                case DOWN -> abajo_presionada = true;
+            }
+        });
 
         escena.setOnKeyReleased(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case SPACE -> arriba_presionada = false;
-                case W -> arriba_presionada=false;
+                case W -> arriba_presionada = false;
                 case UP -> arriba_presionada = false;
                 case DOWN -> abajo_presionada = false;
                 case S -> abajo_presionada = false;
-            }});
+            }
+        });
     }
 
-    private void graficar(){
+    private void graficar() {
         fondo.graficar(graficos);
         personajePrueba.graficar(graficos);
-        for (Obstaculo obstaculo:objeto){
+        for (Obstaculo obstaculo : objeto) {
             obstaculo.graficar(graficos);
         }
 
 
     }
-    private void logicaObjeto(){
+
+    private void logicaObjeto() {
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
         personajePrueba.verificarColisiones(objeto);
-        for (Obstaculo movil:objeto){
+        for (Obstaculo movil : objeto) {
             movil.logicaObjeto();
         }
         mapa.logica();
 
-
     }
-    private void actualizar(){
-        this.personajePrueba.movimiento(arriba_presionada,abajo_presionada);
+
+    private void actualizar() {
+        this.personajePrueba.movimiento(arriba_presionada, abajo_presionada);
     }
 
     //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
     private void ciclo() {
-        final long fps_duracion =1000000000/tope_fps;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+        final long fps_duracion = 1000000000 / tope_fps;
+        ;
         long tiempoInicio = System.nanoTime();
         AnimationTimer tiempo = new AnimationTimer() {
             private int fps_counter;
             private long fps_timer;
             private long uf;
+
             @Override
             public void handle(long tiempoActual) {
-                if(uf==0){
-                    uf=tiempoActual;
-                    fps_timer=tiempoActual;
-                }if (tiempoActual - uf < fps_duracion){
+                if (uf == 0) {
+                    uf = tiempoActual;
+                    fps_timer = tiempoActual;
+                }
+                if (tiempoActual - uf < fps_duracion) {
                     return;
                 }
-                uf=tiempoActual;
+                uf = tiempoActual;
                 fps_counter++;
                 logicaObjeto();
                 graficar();
@@ -140,12 +151,21 @@ public class Inicio extends Application {
                     fps_timer = tiempoActual;
                     //fps_animacion=fps_counter;
 
-            }}
+                }
+            }
         };
         tiempo.start();
     }
-
-    public static void main(String[] args) {
-        launch();
+    public void playMusica(int i){
+        efectosMusica.archivo(i);
+        efectosMusica.playMusica();
+        efectosMusica.bucle();
+    }
+    public void stopMusica(){
+        efectosMusica.stopMusica();
+    }
+    public void playSE(int i){
+        efectosMusica.archivo(i);
+        efectosMusica.playMusica();
     }
 }
