@@ -1,4 +1,5 @@
 package com.unam.aragon.modelo;
+
 import com.unam.aragon.arranque.Inicio;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -6,7 +7,6 @@ import javafx.scene.image.Image;
 import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PersonajePrueba extends ComponentesJuego{
     private Image sprite_Map_jugador;
@@ -19,7 +19,8 @@ public class PersonajePrueba extends ComponentesJuego{
     private int fuerza_salto =18;
     private int velocidad_y=0;
     private int selector_horizontal=0;
-    private int vidas=0;
+    public static int vidas=0;
+    private long ultimoTiempoColision = 0;
 
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad, int vidas) {
@@ -28,6 +29,12 @@ public class PersonajePrueba extends ComponentesJuego{
         this.sprite_Map_jugador =new Image(ruta);
         this.vidas=vidas;
     }
+
+    public PersonajePrueba(int x, int y, String imagen, int velocidad, Image sprite_Map_jugador) {
+        super(x, y, imagen, velocidad);
+        this.sprite_Map_jugador = sprite_Map_jugador;
+    }
+
     public void movimiento(boolean arriba, boolean abajo){
         if (arriba && toca_suelo) {
             velocidad_y = -fuerza_salto;
@@ -85,10 +92,11 @@ public class PersonajePrueba extends ComponentesJuego{
     }
 
     private void terminarJuego() {
+
         System.out.println("Juego terminado");
     }
 
-    public void verificarColisiones(ArrayList<Obstaculo> objetos) {
+    public void verificarColisiones(ArrayList<Obstaculo> objetos, Marcadores marcador) {
         this.cuenta++;
         if (this.cuenta >= 10) {
             this.cuenta = 0;

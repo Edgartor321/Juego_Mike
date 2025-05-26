@@ -6,11 +6,13 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Fondo extends ComponentesJuego{
     private int bgx = Inicio.anchura_panel;
     private Image imagen;
     private Image imagenDos;
+
 
     public Fondo(int x, int y, String imagen, int velocidad) {
         super(x, y, imagen, velocidad);

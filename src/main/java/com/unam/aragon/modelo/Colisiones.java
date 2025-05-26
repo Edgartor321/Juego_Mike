@@ -1,9 +1,8 @@
 package com.unam.aragon.modelo;
 
-import java.awt.Rectangle;
-
 public class Colisiones {
     public static boolean detectarColision(ComponentesJuego a, ComponentesJuego b) {
+
         if (a == null || b == null) return false;
 
         if (a instanceof PersonajePrueba && b instanceof Obstaculo) {

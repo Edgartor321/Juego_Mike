@@ -7,8 +7,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +20,7 @@ public class Inicio extends Application {
     private Canvas hoja;
     private Fondo fondo;
     private Mapa mapa;
+    private Marcadores marcador;
 
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
@@ -39,11 +38,12 @@ public class Inicio extends Application {
     private ArrayList<Obstaculo> objeto;
     private float velocidad_abs=0;
 
+
     //Sitio de arranque
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
         arrancador();
-        graficar();
+//      graficar();
         stage.setTitle("Mike VS Microsoft");
         stage.setScene(escena);
         stage.show();
@@ -63,6 +63,7 @@ public class Inicio extends Application {
         teclado();
         mapa=new Mapa(anchura_panel,tamano_cuadro,4);
         objeto=mapa.getObst();
+        marcador=new Marcadores(15,15,"corazon.png",1);
     }
 
     private void teclado() {
@@ -91,17 +92,20 @@ public class Inicio extends Application {
         for (Obstaculo obstaculo:objeto){
             obstaculo.graficar(graficos);
         }
+        marcador.graficar(graficos);
 
 
     }
     private void logicaObjeto(){
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
-        personajePrueba.verificarColisiones(objeto);
+        personajePrueba.verificarColisiones(objeto, marcador);
+
         for (Obstaculo movil:objeto){
             movil.logicaObjeto();
         }
         mapa.logica();
+        marcador.logicaObjeto();
 
 
     }
@@ -117,6 +121,7 @@ public class Inicio extends Application {
             private int fps_counter;
             private long fps_timer;
             private long uf;
+
             @Override
             public void handle(long tiempoActual) {
                 if(uf==0){
@@ -127,6 +132,7 @@ public class Inicio extends Application {
                 }
                 uf=tiempoActual;
                 fps_counter++;
+
                 logicaObjeto();
                 graficar();
                 actualizar();
@@ -147,5 +153,13 @@ public class Inicio extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public float getVelocidad_abs() {
+        return velocidad_abs;
+    }
+
+    public void setVelocidad_abs(float velocidad_abs) {
+        this.velocidad_abs = velocidad_abs;
     }
 }
