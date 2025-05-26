@@ -23,6 +23,8 @@ public class Inicio extends Application {
     private Fondo fondo;
     private Mapa mapa;
     private Marcadores marcador;
+    private EfectosMusica efectosMusica;
+
 
     //Establecer configuraciones de ventana.
     public static final int tamano_cuadro_default = 32;
@@ -40,7 +42,6 @@ public class Inicio extends Application {
     private ArrayList<Obstaculo> objeto;
     private float velocidad_abs=0;
 
-
     //Sitio de arranque
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
@@ -52,6 +53,7 @@ public class Inicio extends Application {
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         ciclo();
+        playMusica(0);
     }
 
     private void arrancador() throws URISyntaxException{
@@ -66,8 +68,7 @@ public class Inicio extends Application {
         mapa=new Mapa(anchura_panel,tamano_cuadro,4);
         objeto=mapa.getObst();
         marcador=new Marcadores(15,15,"corazon.png",1);
-
-
+        efectosMusica = new EfectosMusica();
     }
 
     private void teclado() {
@@ -96,7 +97,7 @@ public class Inicio extends Application {
         for (Obstaculo obstaculo:objeto){
             obstaculo.graficar(graficos);
         }
-        marcador.graficar(graficos);
+
 
     }
     private void logicaObjeto(){
@@ -106,7 +107,6 @@ public class Inicio extends Application {
         for (Obstaculo movil:objeto){
             movil.logicaObjeto();
         }
-
         mapa.logica();
         marcador.logicaObjeto();
     }
@@ -145,12 +145,21 @@ public class Inicio extends Application {
                     fps_timer = tiempoActual;
                     //fps_animacion=fps_counter;
 
-            }}
+                }
+            }
         };
         tiempo.start();
     }
-
-    public static void main(String[] args) {
-        launch();
+    public void playMusica(int i){
+        efectosMusica.archivo(i);
+        efectosMusica.playMusica();
+        efectosMusica.bucle();
+    }
+    public void stopMusica(){
+        efectosMusica.stopMusica();
+    }
+    public void playSE(int i){
+        efectosMusica.archivo(i);
+        efectosMusica.playMusica();
     }
 }
