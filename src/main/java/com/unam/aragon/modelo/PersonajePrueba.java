@@ -1,7 +1,6 @@
 package com.unam.aragon.modelo;
 import com.unam.aragon.arranque.Inicio;
 import com.unam.aragon.extras.EfectosMusica;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -25,12 +24,16 @@ public class PersonajePrueba extends ComponentesJuego{
     private long ultimoTiempoColision = 0;
     private EfectosMusica efectosMusica = new EfectosMusica();
     private boolean muerto=false;
+    private int alto=0,ancho=0,reduc=0;
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad, int vidas) {
         super(x, y, imagen, velocidad);
         InputStream ruta=Fondo.class.getResourceAsStream(imagen);
         this.sprite_Map_jugador =new Image(ruta);
         this.vidas=vidas;
+        this.alto=56;
+        this.ancho=48;
+        this.reduc=0;
     }
     public void movimiento(boolean arriba, boolean abajo){
         if(!muerto){
@@ -43,6 +46,12 @@ public class PersonajePrueba extends ComponentesJuego{
 
             }if (abajo && toca_suelo) {
                 selector_horizontal=3;
+                alto=32;
+                reduc=32;
+            }else{
+                selector_horizontal=0;
+                alto=55;
+                reduc = 0;
             }
         }
 
@@ -79,20 +88,28 @@ public class PersonajePrueba extends ComponentesJuego{
             if (columna_sprite>4){
                 columna_sprite=4;
             }
+        } else if ( alto==32 && toca_suelo &&vidas>0&&columna_sprite<=4) {
+            columna_sprite++;
+            if ( columna_sprite>4 ){
+                columna_sprite=4;
+            }
         }
         personaje_caminando = columna_sprite*32;
     }
     @Override
     public void graficar(GraphicsContext g) {
         g.drawImage(sprite_Map_jugador, personaje_caminando, 32*selector_horizontal, 32, 32, x, y, 64 * Inicio.escala , 64 * Inicio.escala );
+        g.strokeRect(getX()+5,y+reduc,46,alto);
+        g.setStroke(Color.RED);
         if (vidas<=0){
             selector_horizontal=2;
+
         }
         recorteImagenes();
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(getX(), getY(), 32, 32);
+        return new Rectangle(getX()+5, getY()+reduc, 46, alto);
     }
 
     public void restarVida() {

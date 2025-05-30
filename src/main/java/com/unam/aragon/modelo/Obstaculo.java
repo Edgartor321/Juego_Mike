@@ -7,11 +7,11 @@ import javafx.scene.paint.Color;
 import java.awt.Rectangle;
 
 public class Obstaculo extends ComponentesJuego {
-    private final int ANCHO = 32;
-    private final int ALTO = 32;
+    private int ANCHO = 32;
+    private int ALTO = 32;
     private Image img;
 
-    public Obstaculo(int x, int y, String imagen, int velocidad) {
+    public Obstaculo(int x, int y, String imagen, int velocidad, int ancho) {
         super(x, y, imagen, velocidad);
         this.img = new Image(getClass().getResourceAsStream(imagen));
     }

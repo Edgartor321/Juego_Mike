@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -43,6 +44,11 @@ public class Inicio extends Application {
     private static final int tope_fps=120;
     private ArrayList<Obstaculo> objeto;
     private float velocidad_abs=0;
+    private int puntuacion=0;
+    private float multiplicador=2f;
+    private int velocidadBase=1;
+    private int puntosVelocidad=200;
+    ;
 
     //Constantes para posicionar elestado de juego
     private static final int MENU =0;
@@ -78,6 +84,9 @@ public class Inicio extends Application {
         objeto=mapa.getObst();
         marcador=new Marcadores(15,15,"corazon.png",1);
         efectosMusica = new EfectosMusica();
+    }
+    public void aumentarVelocidad() {
+        velocidad_abs = (int) (velocidadBase * multiplicador);
     }
 
     private void teclado() {
@@ -198,12 +207,15 @@ public class Inicio extends Application {
                 }
                 graficar();
                 actualizar();
+
+
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
 
                 if (tiempoActual - fps_timer >= 1000000000) {
                     System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
+                    //fps_animacion=fps_counter;
 
                 }
             }
@@ -247,5 +259,9 @@ public class Inicio extends Application {
         graficos.setFill(Color.WHITE);
         graficos.fillText("Presiona EESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
         graficos.restore();
+    }
+
+    public float getVelocidad_abs() {
+        return velocidad_abs;
     }
 }
