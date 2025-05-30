@@ -1,8 +1,10 @@
 package com.unam.aragon.modelo;
 import com.unam.aragon.arranque.Inicio;
 import com.unam.aragon.extras.EfectosMusica;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.InputStream;
@@ -22,6 +24,7 @@ public class PersonajePrueba extends ComponentesJuego{
     public static int vidas=0;
     private long ultimoTiempoColision = 0;
     private EfectosMusica efectosMusica = new EfectosMusica();
+    private boolean muerto=false;
 
     public PersonajePrueba(int x, int y, String imagen, int velocidad, int vidas) {
         super(x, y, imagen, velocidad);
@@ -30,22 +33,25 @@ public class PersonajePrueba extends ComponentesJuego{
         this.vidas=vidas;
     }
     public void movimiento(boolean arriba, boolean abajo){
-        if (arriba && toca_suelo) {
-            velocidad_y = -fuerza_salto;
-            toca_suelo = false;
-            selector_horizontal=1;
+        if(!muerto){
+            if (arriba && toca_suelo) {
+                velocidad_y = -fuerza_salto;
+                toca_suelo = false;
+                selector_horizontal=1;
+                efectosMusica.archivo(1);
+                efectosMusica.playMusica();
 
-            efectosMusica.archivo(1);
-            efectosMusica.playMusica();
-
-        }if (abajo && toca_suelo) {
-            selector_horizontal=2;
+            }if (abajo && toca_suelo) {
+                selector_horizontal=3;
+            }
         }
+
         //System.out.println(this.getX()+this.getY());
     }
 
     @Override
     public void logicaObjeto() {
+        //recorteImagenes();
         if(!toca_suelo){
            velocidad_y+= gravedad;
             y += velocidad_y;
@@ -63,16 +69,25 @@ public class PersonajePrueba extends ComponentesJuego{
 
     private void recorteImagenes() {
         cuenta++;
-        if (cuenta >= velocidad_animacion && columna_sprite<=4) {
+        if (cuenta >= velocidad_animacion && columna_sprite<=4&&vidas>0) {
             cuenta = 0;
             columna_sprite++;
         } else if (columna_sprite>4) {
             columna_sprite=0;
+    }else if (vidas<=0&&cuenta>=velocidad_animacion&&columna_sprite<=4){
+            columna_sprite++;
+            if (columna_sprite>4){
+                columna_sprite=4;
+            }
+        }
         personaje_caminando = columna_sprite*32;
-    }}
+    }
     @Override
     public void graficar(GraphicsContext g) {
         g.drawImage(sprite_Map_jugador, personaje_caminando, 32*selector_horizontal, 32, 32, x, y, 64 * Inicio.escala , 64 * Inicio.escala );
+        if (vidas<=0){
+            selector_horizontal=2;
+        }
         recorteImagenes();
     }
 
@@ -89,19 +104,18 @@ public class PersonajePrueba extends ComponentesJuego{
     }
 
     private void terminarJuego() {
-        System.out.println("Juego terminado");
+        //System.out.println("Juego terminado");
+        this.muerto=true;
+        efectosMusica.archivo(3);
+        efectosMusica.playMusica();
     }
 
     public void verificarColisiones(ArrayList<Obstaculo> objetos, Marcadores marcador) {
-        this.cuenta++;
-        if (this.cuenta >= 10) {
-            this.cuenta = 0;
             for (ComponentesJuego obj:objetos){
                 if (Colisiones.detectarColision(this,obj)&&obj.tangible==true){
                     restarVida();
                     obj.tangible=false;
                     break;
-        }
             }
         }
     }
@@ -109,7 +123,24 @@ public class PersonajePrueba extends ComponentesJuego{
     public int getVidas() {
         return vidas;
     }
+
+    public boolean isMuerto() {
+        return muerto;
+    }
+
+    public void setMuerto(boolean muerto) {
+        this.muerto = muerto;
+    }
+
+    public void setToca_suelo(boolean toca_suelo) {
+        this.toca_suelo = toca_suelo;
+    }
+
+    public Image getSprite_Map_jugador() {
+        return sprite_Map_jugador;
+    }
 }
+
 
 
 

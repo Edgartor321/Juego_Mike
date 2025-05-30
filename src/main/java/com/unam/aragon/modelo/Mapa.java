@@ -42,7 +42,7 @@ public class Mapa {
     private void crearObstaculo() {
         int valor=random.nextInt(100);
         if (valor>50){
-            Obstaculo obstaculo =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,230,"Tileset.png",1);
+            Obstaculo obstaculo =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,250,"Tileset.png",1);
             obst.add(obstaculo);
         }
     }
@@ -54,6 +54,9 @@ public class Mapa {
         moverObstaculo();
     }
 
+    public void reiniciar() {
+        obst.clear();
+    }
 }
 
 

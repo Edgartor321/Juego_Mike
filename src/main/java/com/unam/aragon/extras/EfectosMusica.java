@@ -27,11 +27,9 @@ public class EfectosMusica {
     public void playMusica(){
         clip.start();
     }
-
     public void bucle(){
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-
     public void stopMusica(){
         clip.stop();
     }

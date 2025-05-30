@@ -10,8 +10,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -38,10 +38,18 @@ public class Inicio extends Application {
     //Teclado variables
     private boolean arriba_presionada=false;
     private boolean abajo_presionada=false;
+    private boolean pausa_presionada=false;
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
     private ArrayList<Obstaculo> objeto;
     private float velocidad_abs=0;
+
+    //Constantes para posicionar elestado de juego
+    private static final int MENU =0;
+    private static final int JUGANDO= 1;
+    private static final int PAUSA=2;
+    private static final int GAME_OVER= 3;
+    private int status =MENU;
 
     //Sitio de arranque
     @Override
@@ -80,6 +88,8 @@ public class Inicio extends Application {
                 case S -> abajo_presionada=true;
                 case UP -> arriba_presionada=true;
                 case DOWN -> abajo_presionada=true;
+                case CONTROL -> abajo_presionada=true;
+                case ENTER -> pausa_presionada=true;
             }});
 
         escena.setOnKeyReleased(keyEvent -> {
@@ -89,20 +99,39 @@ public class Inicio extends Application {
                 case UP -> arriba_presionada = false;
                 case DOWN -> abajo_presionada = false;
                 case S -> abajo_presionada = false;
+                case CONTROL -> abajo_presionada=false;
+                case ENTER -> pausa_presionada=false;
             }});
     }
 
     private void graficar(){
-        fondo.graficar(graficos);
-        personajePrueba.graficar(graficos);
-        for (Obstaculo obstaculo:objeto){
-            obstaculo.graficar(graficos);
+        if(status!=MENU){
+            fondo.graficar(graficos);
+            personajePrueba.graficar(graficos);
+            for (Obstaculo obstaculo:objeto){
+                obstaculo.graficar(graficos);
+            }
+            marcador.graficar(graficos);
+            if (personajePrueba.isMuerto()){
+                status=GAME_OVER;
+                stopMusica();
+            }
         }
-        marcador.graficar(graficos);
-
-
+        switch (status){
+            case MENU:
+                dibujarMenu();
+                break;
+            case PAUSA:
+                dibujarPausa();
+                break;
+            case GAME_OVER:
+                dibujarFinal();
+        }
     }
     private void logicaObjeto(){
+        if (status!=JUGANDO){
+            return;
+        }
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
         marcador.logicaObjeto();
@@ -113,7 +142,37 @@ public class Inicio extends Application {
         mapa.logica();
     }
     private void actualizar(){
-        this.personajePrueba.movimiento(arriba_presionada,abajo_presionada);
+        if (status==JUGANDO){
+            this.personajePrueba.movimiento(arriba_presionada,abajo_presionada);
+        }
+        if (status==GAME_OVER&&arriba_presionada){
+            reiniciar();
+        }
+        if (status==MENU&&arriba_presionada){
+            status=JUGANDO;
+        }
+        if (status==JUGANDO&&pausa_presionada){
+            status=PAUSA;
+            stopMusica();
+        }
+        if (status==PAUSA&&arriba_presionada){
+            status=JUGANDO;
+            playMusica(0);
+        }
+    }
+    private void reiniciar(){
+        personajePrueba.setX(150);
+        personajePrueba.setY(100);
+        PersonajePrueba.vidas=3;
+        objeto.clear();
+        mapa.reiniciar();
+        objeto=mapa.getObst();
+        personajePrueba.setMuerto(false);
+        personajePrueba.setToca_suelo(false);
+        marcador.setPuntuacion(0);
+
+        status=JUGANDO;
+        playMusica(0);
     }
 
     //ciclo mejorado, ahora limita la cantidad de cuadros por segundo
@@ -134,18 +193,17 @@ public class Inicio extends Application {
                 }
                 uf=tiempoActual;
                 fps_counter++;
-                logicaObjeto();
+                if (status==JUGANDO){
+                    logicaObjeto();
+                }
                 graficar();
                 actualizar();
-
-
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
 
                 if (tiempoActual - fps_timer >= 1000000000) {
                     System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
-                    //fps_animacion=fps_counter;
 
                 }
             }
@@ -160,8 +218,34 @@ public class Inicio extends Application {
     public void stopMusica(){
         efectosMusica.stopMusica();
     }
-    public void playSE(int i){
-        efectosMusica.archivo(i);
-        efectosMusica.playMusica();
+    private void dibujarMenu() {
+        graficos.save();
+        fondo.graficar(graficos);
+        graficos.setFill(Color.WHITE);
+        graficos.setFont(Font.font("Arial", 20));
+        graficos.drawImage(personajePrueba.getSprite_Map_jugador(),0,0,32,32,anchura_panel/2-150,20,300,128);
+        //graficos.drawImage();
+        //Colocar la imagen del Juego
+        graficos.fillText("Presiona Espacio para jugar",190,(altura_panel/2)+20);
+//        graficos.setStroke(Color.BLACK);
+//        graficos.strokeText("Presiona ESPACIO para jugar",190,(altura_panel/2)+20);
+        graficos.restore();
+    }
+    private void dibujarPausa() {
+        graficos.save();
+        graficos.setFill(Color.WHITE);
+        graficos.setFont(Font.font("Arial",18));
+        graficos.fillText("Pausa",anchura_panel/2-40,altura_panel/2);
+        graficos.fillText("Presiona ESPACIO para reanudar",anchura_panel/2-135,altura_panel/2+20);
+        graficos.restore();
+    }
+    private void dibujarFinal() {
+        graficos.save();
+        graficos.setFill(Color.RED);
+        graficos.setFont(Font.font("Arial",18));
+        graficos.fillText("GAME OVER",anchura_panel/2-40,altura_panel/2-10);
+        graficos.setFill(Color.WHITE);
+        graficos.fillText("Presiona EESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
+        graficos.restore();
     }
 }

@@ -2,6 +2,8 @@ package com.unam.aragon.modelo;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+
 import java.awt.Rectangle;
 
 public class Obstaculo extends ComponentesJuego {
@@ -21,7 +23,11 @@ public class Obstaculo extends ComponentesJuego {
 
     @Override
     public void graficar(GraphicsContext g) {
-        g.drawImage(img, 0,0,32,32,x,y,ANCHO,ALTO);
+        if (this.isTangible()){
+            g.drawImage(img, 0,0,32,32,x,y,ANCHO,ALTO);
+        }else {
+            g.drawImage(img,32,32,32,32,x,y,ANCHO,ALTO);
+        }
     }
 
     public Rectangle getBounds() {

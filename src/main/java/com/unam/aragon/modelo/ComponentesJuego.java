@@ -56,6 +56,10 @@ public abstract class ComponentesJuego {
     public Rectangle getBounds(int ancho, int alto) {
         return new Rectangle(x, y, ancho, alto);
     }
+
+    public boolean isTangible() {
+        return tangible;
     }
+}
 
 
