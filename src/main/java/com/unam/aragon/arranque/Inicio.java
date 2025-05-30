@@ -44,10 +44,8 @@ public class Inicio extends Application {
     private static final int tope_fps=120;
     private ArrayList<Obstaculo> objeto;
     private float velocidad_abs=0;
-    private int puntuacion=0;
-    private float multiplicador=2f;
-    private int velocidadBase=1;
-    private int puntosVelocidad=200;
+
+
     ;
 
     //Constantes para posicionar elestado de juego
@@ -85,9 +83,7 @@ public class Inicio extends Application {
         marcador=new Marcadores(15,15,"corazon.png",1);
         efectosMusica = new EfectosMusica();
     }
-    public void aumentarVelocidad() {
-        velocidad_abs = (int) (velocidadBase * multiplicador);
-    }
+
 
     private void teclado() {
         escena.setOnKeyPressed(keyEvent -> {
