@@ -42,16 +42,16 @@ public class Mapa {
     private void crearObstaculo() {
         int valor=random.nextInt(100);
         if (valor>50 && valor<70){
-            Obstaculo obstaculo1 =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,230,"windows.png",1, 48);
+            Obstaculo obstaculo1 =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,240,"windows.png",1, 48);
             obst.add(obstaculo1);
 
         }
         if(valor<50) {
-            Obstaculo obstaculo2 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 210, "Tileset.png", 1, 32);
+            Obstaculo obstaculo2 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 207, "edge.png", 1, 32);
             obst.add(obstaculo2);
         }
-        if(valor>70){
-            Obstaculo obstaculo3=new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,250,"applegei.png",1, 64);
+        if(valor>70) {
+            Obstaculo obstaculo3=new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,250,"google.png",1, 64);
             obst.add(obstaculo3);
         }
 
