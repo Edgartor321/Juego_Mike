@@ -257,7 +257,7 @@ public class Inicio extends Application {
         graficos.setFont(Font.font("Arial",18));
         graficos.fillText("GAME OVER",anchura_panel/2-40,altura_panel/2-10);
         graficos.setFill(Color.WHITE);
-        graficos.fillText("Presiona EESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
+        graficos.fillText("Presiona ESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
         graficos.restore();
     }
 
