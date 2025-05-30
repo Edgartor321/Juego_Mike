@@ -47,11 +47,11 @@ public class Mapa {
 
         }
         if(valor<50) {
-            Obstaculo obstaculo2 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 210, "Tileset.png", 1, 32);
+            Obstaculo obstaculo2 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 207, "edge.png", 1, 32);
             obst.add(obstaculo2);
         }
-        if(valor>70){
-            Obstaculo obstaculo3=new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,250,"applegei.png",1, 64);
+        if(valor>70) {
+            Obstaculo obstaculo3=new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,250,"Tileset.png",1, 64);
             obst.add(obstaculo3);
         }
 
