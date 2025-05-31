@@ -99,8 +99,8 @@ public class PersonajePrueba extends ComponentesJuego{
     @Override
     public void graficar(GraphicsContext g) {
         g.drawImage(sprite_Map_jugador, personaje_caminando, 32*selector_horizontal, 32, 32, x, y, 64 * Inicio.escala , 64 * Inicio.escala );
-        g.strokeRect(getX()+5,y+reduc,46,alto);
-        g.setStroke(Color.RED);
+//        g.strokeRect(getX()+5,y+reduc,46,alto);
+//        g.setStroke(Color.RED);
         if (vidas<=0){
             selector_horizontal=2;
 
