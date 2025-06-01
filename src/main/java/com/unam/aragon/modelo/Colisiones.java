@@ -11,6 +11,7 @@ public class Colisiones {
             return ((Obstaculo) a).getBounds().intersects(((PersonajePrueba) b).getBounds());
         }
 
+
         return false;
     }
 }

@@ -3,15 +3,14 @@ package com.unam.aragon.modelo;
 import com.unam.aragon.arranque.Inicio;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class Fondo extends ComponentesJuego{
     private int bgx = Inicio.anchura_panel;
     private Image imagen;
     private Image imagenDos;
+    private int puntuacion=0;
 
 
     public Fondo(int x, int y, String imagen, int velocidad) {
@@ -21,6 +20,7 @@ public class Fondo extends ComponentesJuego{
 //        ruta=Fondo.class.getResourceAsStream("Comprimida.jpg");
 //        this.imagenDos =new Image(ruta);
     }
+
     public void graficar(GraphicsContext g){
 //        img- la imagen a dibujar o nula.
 //        sx- la posición de coordenadas X del rectángulo fuente.
@@ -40,12 +40,16 @@ public class Fondo extends ComponentesJuego{
     public void logicaObjeto(){
         x-=velocidad;
         bgx -= velocidad;
-        if (x == (Inicio.anchura_panel*-1)) {
+        if (x <= (Inicio.anchura_panel*-1)) {
             x = (Inicio.anchura_panel);
         }
-        if (bgx == Inicio.anchura_panel*-1) {
+        if (bgx <= Inicio.anchura_panel*-1) {
             bgx = (Inicio.anchura_panel);
         }
     }
 
+    @Override
+    public void actualizarVelocidad() {
+        this.velocidad=4;
+    }
 }
