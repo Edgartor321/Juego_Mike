@@ -113,7 +113,7 @@ public class PersonajePrueba extends ComponentesJuego{
     }
 
     public void restarVida() {
-        System.out.println("Quitando vida");
+        //System.out.println("Quitando vida");
         vidas--;
         efectosMusica.archivo(2);
         efectosMusica.playMusica();
