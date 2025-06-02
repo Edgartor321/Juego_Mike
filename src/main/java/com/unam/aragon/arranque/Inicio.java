@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -210,13 +209,13 @@ public class Inicio extends Application {
 
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
 
-                if (tiempoActual - fps_timer >= 1000000000) {
-                    System.out.println("FPS: " + fps_counter);
-                    fps_counter = 0;
-                    fps_timer = tiempoActual;
-                    //fps_animacion=fps_counter;
+//                if (tiempoActual - fps_timer >= 1000000000) {
+//                    System.out.println("FPS: " + fps_counter);
+//                    fps_counter = 0;
+//                    fps_timer = tiempoActual;
+//                    //fps_animacion=fps_counter;
 
-                }
+//                }
             }
         };
         tiempo.start();
@@ -262,9 +261,5 @@ public class Inicio extends Application {
         graficos.setFill(Color.WHITE);
         graficos.fillText("Presiona ESPACIO para reintentar",anchura_panel/2-135,altura_panel/2+100);
         graficos.restore();
-    }
-
-    public float getVelocidad_abs() {
-        return velocidad_abs;
     }
 }

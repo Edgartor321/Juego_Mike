@@ -43,7 +43,6 @@ public class Marcadores extends ComponentesJuego {
 
 
     //revisar Ed
-    //segun dibuja los corazones
     @Override
     public void graficar(GraphicsContext g) {
         int espacioEntreCorazones = 5;

@@ -139,10 +139,6 @@ public class PersonajePrueba extends ComponentesJuego{
         }
     }
 
-    public int getVidas() {
-        return vidas;
-    }
-
     public boolean isMuerto() {
         return muerto;
     }

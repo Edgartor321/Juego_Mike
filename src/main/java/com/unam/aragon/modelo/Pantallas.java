@@ -36,8 +36,4 @@ public class Pantallas extends ComponentesJuego{
         selector_horizontal=columna_sprite*200;
         g.drawImage(panelmap,selector_horizontal,0,200,113, 0,0,Inicio.anchura_panel,Inicio.altura_panel);
     }
-
-    public Image getPanelmap() {
-        return panelmap;
-    }
 }
