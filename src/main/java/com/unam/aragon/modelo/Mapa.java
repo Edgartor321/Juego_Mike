@@ -25,16 +25,12 @@ public class Mapa {
             crearObstaculo();
 
         }
-        if (this.cuenta % 100 == 0){
-            acelerarObstaculos();
-        }
     }
 
     private void moverObstaculo(){
         for (int i = 0; i < obst.size(); i++) {
             Obstaculo obstaculo = obst.get(i);
-
-            int nueva_pos = obstaculo.getX() - obstaculo.getVelocidad();
+            int nueva_pos=obstaculo.getX()-this.desplazamiento;
             obstaculo.setX(nueva_pos);
             if (obstaculo.getX()+obstaculo.getANCHO()<0){
                 obst.remove(i);
@@ -43,56 +39,23 @@ public class Mapa {
         }
     }
 
-    private void acelerarObstaculos (){
-        for (Obstaculo obs : obst){
-            int nuevaVel = obs.getVelocidad() + 1;
-            if (nuevaVel <=10){
-                obs.setVelocidad(nuevaVel);
-            }
-        }
-    }
-
     private void crearObstaculo() {
+        int valor=random.nextInt(100);
+        if (valor>50 && valor<70){
+            Obstaculo obstaculo1 =new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,240,"windows.png",1, 48);
+            obst.add(obstaculo1);
 
-        int valor = random.nextInt(100);
-        if (valor > 50 && valor < 70) {
-            Obstaculo obstaculo1 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 240, "windows.png", 1, 48);
-            if (!seSuperpone(obstaculo1) && !estaDemasiadoCerca(obstaculo1)) {
-                obst.add(obstaculo1);
-            }
         }
-        if (valor < 50) {
+        if(valor<50) {
             Obstaculo obstaculo2 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 207, "edge.png", 1, 32);
-            if (!seSuperpone(obstaculo2) && !estaDemasiadoCerca(obstaculo2)) {
-                obst.add(obstaculo2);
-            }
+            obst.add(obstaculo2);
         }
-        if (valor > 70) {
-            Obstaculo obstaculo3 = new Obstaculo(Inicio.anchura_panel + Inicio.tamano_cuadro, 250, "google.png", 1, 64);
-            if (!seSuperpone(obstaculo3) && !estaDemasiadoCerca(obstaculo3)) {
-                obst.add(obstaculo3);
-            }
+        if(valor>70) {
+            Obstaculo obstaculo3=new Obstaculo(Inicio.anchura_panel+Inicio.tamano_cuadro,250,"google.png",1, 64);
+            obst.add(obstaculo3);
         }
-    }
-    private boolean seSuperpone(Obstaculo nuevo) {
-        for (Obstaculo existente : obst) {
-            if (nuevo.getBounds().intersects(existente.getBounds())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private boolean estaDemasiadoCerca(Obstaculo nuevo) {
-        for (Obstaculo existente : obst) {
-            int distanciaX = Math.abs(nuevo.getX() - existente.getX());
-            if (distanciaX < 50) {
-                return true;
-            }
-        }
-        return false;
     }
-
     public ArrayList <Obstaculo> getObst(){
         return obst;
     }

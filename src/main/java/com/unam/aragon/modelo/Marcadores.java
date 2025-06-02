@@ -40,10 +40,6 @@ public class Marcadores extends ComponentesJuego {
         }
     }
 
-    public int getPuntuacion() {
-        return puntuacion;
-    }
-
 
     //revisar Ed
     //segun dibuja los corazones
@@ -118,9 +114,4 @@ public class Marcadores extends ComponentesJuego {
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
     }
-
 }
-
-
-
-

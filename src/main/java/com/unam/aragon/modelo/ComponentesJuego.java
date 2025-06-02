@@ -60,9 +60,6 @@ public abstract class ComponentesJuego {
     public boolean isTangible() {
         return tangible;
     }
-
-    public void actualizarVelocidad() {
-    }
 }
 
 

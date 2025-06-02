@@ -3,13 +3,13 @@ package com.unam.aragon.arranque;
 import com.unam.aragon.extras.EfectosMusica;
 import com.unam.aragon.modelo.*;
 import javafx.animation.AnimationTimer;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -26,8 +26,6 @@ public class Inicio extends Application {
     private Mapa mapa;
     private Marcadores marcador;
     private EfectosMusica efectosMusica;
-    private Timeline velocidadTimer;
-    private int velocidad_abs=0;
 
 
     //Establecer configuraciones de ventana.
@@ -45,6 +43,10 @@ public class Inicio extends Application {
     private PersonajePrueba personajePrueba;
     private static final int tope_fps=120;
     private ArrayList<Obstaculo> objeto;
+    private float velocidad_abs=0;
+
+
+    ;
 
     //Constantes para posicionar elestado de juego
     private static final int MENU =0;
@@ -52,12 +54,6 @@ public class Inicio extends Application {
     private static final int PAUSA=2;
     private static final int GAME_OVER= 3;
     private int status =MENU;
-
-    //para la velocidad
-    private static final int TOPE_VELOCIDAD_FONDO = 5;
-    private static final int INCREMENTO_PUNTOS = 30;
-
-
 
     //Sitio de arranque
     @Override
@@ -87,6 +83,7 @@ public class Inicio extends Application {
         marcador=new Marcadores(15,15,"corazon.png",1);
         efectosMusica = new EfectosMusica();
     }
+
 
     private void teclado() {
         escena.setOnKeyPressed(keyEvent -> {
@@ -140,14 +137,13 @@ public class Inicio extends Application {
         if (status!=JUGANDO){
             return;
         }
-        int puntos = marcador.getPuntuacion();
         this.fondo.logicaObjeto();
         this.personajePrueba.logicaObjeto();
         marcador.logicaObjeto();
-//        personajePrueba.verificarColisiones(objeto,marcador);
-//        for (Obstaculo movil:objeto){
-//            movil.logicaObjeto();
-//        }
+        personajePrueba.verificarColisiones(objeto,marcador);
+        for (Obstaculo movil:objeto){
+            movil.logicaObjeto();
+        }
         mapa.logica();
     }
     private void actualizar(){
@@ -207,12 +203,15 @@ public class Inicio extends Application {
                 }
                 graficar();
                 actualizar();
+
+
                 //Contador de FPS, comentar a posterioridad, solo para comprobar rendimeitos y diversas utilidades.
 
                 if (tiempoActual - fps_timer >= 1000000000) {
                     System.out.println("FPS: " + fps_counter);
                     fps_counter = 0;
                     fps_timer = tiempoActual;
+                    //fps_animacion=fps_counter;
 
                 }
             }
@@ -240,7 +239,6 @@ public class Inicio extends Application {
 //        graficos.strokeText("Presiona ESPACIO para jugar",190,(altura_panel/2)+20);
         graficos.restore();
     }
-
     private void dibujarPausa() {
         graficos.save();
         graficos.setFill(Color.WHITE);
@@ -255,21 +253,11 @@ public class Inicio extends Application {
         graficos.setFont(Font.font("Arial",18));
         graficos.fillText("GAME OVER",anchura_panel/2-40,altura_panel/2-10);
         graficos.setFill(Color.WHITE);
-        graficos.fillText("Presiona EESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
+        graficos.fillText("Presiona ESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
         graficos.restore();
-    } 
-
-    public int getVelocidad_abs (){
-        return (int) velocidad_abs;
     }
 
-    public void setVelocidad_abs (int velocidad_abs){
-        this.velocidad_abs=velocidad_abs;
-    }
-
-    private void aceleracion (){
-        if (marcador.getPuntuacion()>=100){
-            fondo.actualizarVelocidad();
-        }
+    public float getVelocidad_abs() {
+        return velocidad_abs;
     }
 }
