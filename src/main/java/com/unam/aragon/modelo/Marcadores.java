@@ -17,6 +17,7 @@ public class Marcadores extends ComponentesJuego {
     private Image corazon;
     private int mejorPuntuacion = 0;
     private String ruta_absoluta = "src/main/resources/com/unam/aragon/extras/mp.txt";
+    private boolean guardado=false;
 
     public Marcadores(int x, int y, String imagen, int velocidad) {
         super(x, y, imagen, velocidad);
@@ -80,9 +81,10 @@ public class Marcadores extends ComponentesJuego {
 
 
         actualizarCorazones();
-        if (PersonajePrueba.vidas<=0){
+        if (PersonajePrueba.vidas<=0&&!guardado){
             guardarPuntaje();
             System.out.println("Escibiendo");
+            this.guardado=true;
         }
     }
 
@@ -113,5 +115,9 @@ public class Marcadores extends ComponentesJuego {
 
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
     }
 }

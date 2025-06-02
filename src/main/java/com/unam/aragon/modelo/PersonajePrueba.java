@@ -17,7 +17,7 @@ public class PersonajePrueba extends ComponentesJuego{
     private int cuenta ;
     private int gravedad =1;
     private boolean toca_suelo =false;
-    private int fuerza_salto =18;
+    private int fuerza_salto =15;
     private int velocidad_y=0;
     private int selector_horizontal=0;
     public static int vidas=0;
@@ -60,7 +60,7 @@ public class PersonajePrueba extends ComponentesJuego{
 
     @Override
     public void logicaObjeto() {
-        //recorteImagenes();
+        recorteImagenes();
         if(!toca_suelo){
            velocidad_y+= gravedad;
             y += velocidad_y;
@@ -105,7 +105,7 @@ public class PersonajePrueba extends ComponentesJuego{
             selector_horizontal=2;
 
         }
-        recorteImagenes();
+        //recorteImagenes();
     }
 
     public Rectangle getBounds() {

@@ -26,6 +26,7 @@ public class Inicio extends Application {
     private Mapa mapa;
     private Marcadores marcador;
     private EfectosMusica efectosMusica;
+    private Pantallas pantallas;
 
 
     //Establecer configuraciones de ventana.
@@ -82,6 +83,7 @@ public class Inicio extends Application {
         objeto=mapa.getObst();
         marcador=new Marcadores(15,15,"corazon.png",1);
         efectosMusica = new EfectosMusica();
+        pantallas=new Pantallas(0,0,"pantallas.png",1);
     }
 
 
@@ -175,6 +177,7 @@ public class Inicio extends Application {
         personajePrueba.setMuerto(false);
         personajePrueba.setToca_suelo(false);
         marcador.setPuntuacion(0);
+        marcador.setGuardado(false);
 
         status=JUGANDO;
         playMusica(0);
@@ -231,12 +234,15 @@ public class Inicio extends Application {
         fondo.graficar(graficos);
         graficos.setFill(Color.WHITE);
         graficos.setFont(Font.font("Arial", 20));
-        graficos.drawImage(personajePrueba.getSprite_Map_jugador(),0,0,32,32,anchura_panel/2-150,20,300,128);
         //graficos.drawImage();
         //Colocar la imagen del Juego
-        graficos.fillText("Presiona Espacio para jugar",190,(altura_panel/2)+20);
-//        graficos.setStroke(Color.BLACK);
-//        graficos.strokeText("Presiona ESPACIO para jugar",190,(altura_panel/2)+20);
+        pantallas.graficar(graficos);
+        graficos.fillText("Presiona Espacio para jugar",190,(altura_panel/2)+125);
+        graficos.setFont(Font.font("Arial",13));
+        graficos.fillText("Hecho con ♥\uFE0F por:\n" +
+                "Edith\nAlma\nEdgar\nDerek ",10,250);
+        graficos.setFont(Font.font("DepartureMono Nerd Font",25));
+        graficos.fillText("Mike vs las BigTechs",anchura_panel/2-150,(altura_panel/2)-100);
         graficos.restore();
     }
     private void dibujarPausa() {
@@ -252,8 +258,9 @@ public class Inicio extends Application {
         graficos.setFill(Color.RED);
         graficos.setFont(Font.font("Arial",18));
         graficos.fillText("GAME OVER",anchura_panel/2-40,altura_panel/2-10);
+//        graficos.drawImage(pantallas.getPanelmap(),1000,0,200,113,anchura_panel/2-100,50,200*2,113*2);
         graficos.setFill(Color.WHITE);
-        graficos.fillText("Presiona ESPACIO para continuar",anchura_panel/2-130,altura_panel/2+20);
+        graficos.fillText("Presiona ESPACIO para reintentar",anchura_panel/2-135,altura_panel/2+100);
         graficos.restore();
     }
 
